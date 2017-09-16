@@ -16,9 +16,11 @@ services:
       - MYSQL_USER=nextcloud
 
   app:
-    image: nextcloud:fpm
+    image: nextcloud
     links:
       - db
     volumes:
       - /srv/nextcloud/app:/var/www/html
     restart: always
+    ports:
+      - "127.0.0.1:9000:80"
