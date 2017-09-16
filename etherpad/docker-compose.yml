@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    volumes:
+      - /srv/etherpad/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
+  app:
+    image: tvelocity/etherpad-lite
+    links:
+      - db
+    environment:
+      - ETHERPAD_DB_HOST=db
+      - ETHERPAD_DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "127.0.0.1:9001:9001"
