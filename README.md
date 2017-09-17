@@ -37,12 +37,12 @@ export MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)
 
 cp nginx.conf /etc/nginx
 systemctl restart nginx
-certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$DOMAIN,$DOMAIN
+certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d $DOMAIN,www.$DOMAIN
 for service in pad git cloud frontal
 do
     pushd $service
     ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/$service
-    [[ $service != frontal ]] && certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$service.$DOMAIN,$service.$DOMAIN
+    [[ $service != frontal ]] && certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d $service.$DOMAIN,www.$service.$DOMAIN
     docker-compose up -d
     popd
 done
