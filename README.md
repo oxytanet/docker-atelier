@@ -17,7 +17,7 @@ systemctl enable docker
 cd
 git clone https://framagit.org/altermediatic/keys.git
 cd .ssh
-rm authorized_keys
+rm -f authorized_keys
 ln -s ../keys/ssh authorized_keys
 
 # Add this repo
@@ -37,7 +37,8 @@ export MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)
 
 cp nginx.conf /etc/nginx
 systemctl restart nginx
-for service in pad git cloud
+certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$DOMAIN,$DOMAIN
+for service in pad git cloud frontal
 do
     pushd $service
     ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/$service
@@ -45,16 +46,6 @@ do
     docker-compose up -d
     popd
 done
-```
-
-## Deploy Frontal
-
-```
-cd frontal
-docker build -t oxytanet .
-docker run -d -p 8080:80 -t oxytanet
-ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/frontal
-certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$DOMAIN,$DOMAIN
 ```
 
 ## Restart nginx
