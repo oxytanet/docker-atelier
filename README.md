@@ -5,21 +5,24 @@
 ## Install on a clean Arch
 
 ```
+echo 'LANG="en_US.UTF-8"' > /etc/locale.conf
+mkdir -p /etc/nginx/sites-enabled/ /srv/letsencrypt ~/.ssh
+
 # Install packages
-pacman -Syu git docker docker-compose nginx certbot
+pacman -Syu --noconfirm git docker docker-compose nginx certbot
 systemctl start docker
 systemctl enable docker
 
 # Add keys
 cd
-git clone git@framagit.org:altermediatic/keys.git
+git clone https://framagit.org/altermediatic/keys.git
 cd .ssh
 rm authorized_keys
 ln -s ../keys/ssh authorized_keys
 
 # Add this repo
 cd
-git clone git@framagit.org:altermediatic/docker-atelier.git
+git clone https://framagit.org/altermediatic/docker-atelier.git
 cd docker-atelier
 ```
 
@@ -28,7 +31,6 @@ cd docker-atelier
 add `include /etc/nginx/sites-enabled/*` to /etc/nginx/nginx.conf in http section
 
 ```
-mkdir /etc/nginx/sites-enabled/ /srv/letsencrypt
 export DOMAIN=oxyta.net
 export MAIL=services@$DOMAIN
 export MYSQL_PASSWORD=$(openssl rand -base64 32)
