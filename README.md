@@ -42,7 +42,7 @@ for service in pad git cloud frontal
 do
     pushd $service
     ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/$service
-    certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$service.$DOMAIN,$service.$DOMAIN
+    [[ $service != frontal ]] && certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$service.$DOMAIN,$service.$DOMAIN
     docker-compose up -d
     popd
 done
