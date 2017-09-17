@@ -30,3 +30,13 @@ systemctl restart nginx
 certbot certonly --email <me souviens plus> --webroot -w /srv/letsencrypt/ --agree-tos -d www.cloud.oxyta.net -d cloud.oxyta.net
 docker-compose up -d
 ```
+
+## gitlab
+
+```
+cd gitlab
+ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/gitlab
+systemctl restart nginx
+certbot certonly --email <me souviens plus> --webroot -w /srv/letsencrypt/ --agree-tos -d www.git.oxyta.net -d git.oxyta.net
+docker-compose up -d
+```
