@@ -42,7 +42,7 @@ do
     pushd $service
     ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/$service
     systemctl restart nginx
-    certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$service.$DOMAIN -d $service.$DOMAIN
+    certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$service.$DOMAIN,$service.$DOMAIN
     docker-compose up -d
     popd
 done
@@ -55,7 +55,7 @@ cd frontal
 docker build -t oxytanet .
 docker run -d -p 8080:80 -t oxytanet
 ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/frontal
-certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$DOMAIN -d $DOMAIN
+certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$DOMAIN,$DOMAIN
 ```
 
 ## Restart nginx
