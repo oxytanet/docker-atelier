@@ -28,7 +28,6 @@ cd docker-atelier
 
 ## Deploy Services
 
-add `include /etc/nginx/sites-enabled/*` to /etc/nginx/nginx.conf in http section
 
 ```
 export DOMAIN=oxyta.net
@@ -36,10 +35,13 @@ export MAIL=services@$DOMAIN
 export MYSQL_PASSWORD=$(openssl rand -base64 32)
 export MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)
 
+cp nginx.conf /etc/nginx
+systemctl nginix restart
 for service in pad git cloud
 do
     pushd $service
     ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/$service
+    systemctl restart nginx
     certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d www.$service.$DOMAIN -d $service.$DOMAIN
     docker-compose up -d
     popd
