@@ -2,6 +2,6 @@ version: '2'
 
 services:
   app:
-    build .
+    build: .
     ports:
       - "127.0.0.1:8999:80"
