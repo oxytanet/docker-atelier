@@ -3,6 +3,9 @@ version: '2'
 services:
   app:
     image: gitlab/gitlab-ce
+    hostname: 'git.aen.im'
+    environment:
+      - GITLAB_OMNIBUS_CONFIG="external_url https://git.aen.im"
     volumes:
       - /srv/gitlab/app/config:/etc/gitlab
       - /srv/gitlab/app/logs:/var/log/gitlab
@@ -10,4 +13,3 @@ services:
     restart: always
     ports:
       - "127.0.0.1:9002:80"
-      - "127.0.0.1:8999:22"

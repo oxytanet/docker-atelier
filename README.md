@@ -13,7 +13,6 @@
 cd etherpad
 export MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)
 ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/etherpad
-systemctl restart nginx
 certbot certonly --email <me souviens plus> --webroot -w /srv/letsencrypt/ --agree-tos -d www.pad.oxyta.net -d pad.oxyta.net
 docker-compose up -d
 ```
@@ -26,7 +25,6 @@ cd nextcloud
 export MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)
 export MYSQL_PASSWORD=$(openssl rand -base64 32)
 ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/nextcloud
-systemctl restart nginx
 certbot certonly --email <me souviens plus> --webroot -w /srv/letsencrypt/ --agree-tos -d www.cloud.oxyta.net -d cloud.oxyta.net
 docker-compose up -d
 ```
@@ -36,7 +34,12 @@ docker-compose up -d
 ```
 cd gitlab
 ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/gitlab
-systemctl restart nginx
 certbot certonly --email <me souviens plus> --webroot -w /srv/letsencrypt/ --agree-tos -d www.git.oxyta.net -d git.oxyta.net
 docker-compose up -d
+```
+
+## After
+
+```
+systemctl restart nginx
 ```
