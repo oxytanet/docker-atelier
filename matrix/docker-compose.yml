@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  generate:
+    image: silviof/docker-matrix
+    environment:
+      - SERVER_NAME=im.aen.im
+      - REPORT_STATS=no
+    volumes:
+      - /srv/matrix/app/:/data
+    command: generate
+  app:
+    image: silviof/docker-matrix
+    ports:
+      - "8448:8448"
+      - "3478:3478"
+    volumes:
+      - /srv/matrix/app/:/data
+    command: start
