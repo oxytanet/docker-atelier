@@ -3,10 +3,10 @@ version: '2'
 services:
   app:
     image: gitlab/gitlab-ce
-    hostname: 'git.aen.im'
+    hostname: 'git.oxyta.net'
     environment:
       - GITLAB_OMNIBUS_CONFIG |
-        external_url 'https://git.aen.im'
+        external_url 'https://git.oxyta.net'
         gitlab_rails['gitlab_shell_ssh_port'] = 2222
     volumes:
       - /srv/gitlab/app/config:/etc/gitlab

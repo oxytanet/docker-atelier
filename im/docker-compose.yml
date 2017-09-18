@@ -4,7 +4,7 @@ services:
   generate:
     image: silviof/docker-matrix
     environment:
-      - SERVER_NAME=im.aen.im
+      - SERVER_NAME=im.oxyta.net
       - REPORT_STATS=no
     volumes:
       - /srv/matrix/app/:/data
