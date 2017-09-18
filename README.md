@@ -5,7 +5,14 @@
 ## Install on a clean Arch
 
 ```
-echo 'LANG="en_US.UTF-8"' > /etc/locale.conf
+# Set variables
+export LANG=en_US.UTF-8
+export DOMAIN=oxyta.net
+export MAIL=services@$DOMAIN
+export MYSQL_PASSWORD=$(openssl rand -base64 32)
+export MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)
+
+echo LANG="$LANG" > /etc/locale.conf
 mkdir -p /etc/nginx/sites-enabled/ /srv/letsencrypt ~/.ssh
 
 # Install packages
@@ -24,20 +31,19 @@ ln -s ../keys/ssh authorized_keys
 cd
 git clone https://framagit.org/altermediatic/docker-atelier.git
 cd docker-atelier
-```
 
-## Deploy Services
-
-
-```
-export DOMAIN=oxyta.net
-export MAIL=services@$DOMAIN
-export MYSQL_PASSWORD=$(openssl rand -base64 32)
-export MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)
+# Get main Lets Encrypt cert
 
 cp nginx.conf /etc/nginx
 systemctl restart nginx
 certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d $DOMAIN,www.$DOMAIN
+```
+
+Say No
+
+```
+# Deploy Services
+
 for service in pad git cloud frontal
 do
     pushd $service
