@@ -20,6 +20,8 @@ pacman -Syu --noconfirm git docker docker-compose nginx certbot
 systemctl start docker
 systemctl enable docker
 systemctl enable nginx
+echo 'Port 222' >> /etc/ssh/sshd_config
+systemctl restart sshd
 
 # Add keys
 cd
