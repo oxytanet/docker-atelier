@@ -7,7 +7,7 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - /etc/letsencrypt/live/oxyta.net:/certs
+      - /etc/letsencrypt/:/etc/letsencrypt
     environment:
-      - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/fullchain.pem
-      - REGISTRY_HTTP_TLS_KEY=/certs/privkey.pem
+      - REGISTRY_HTTP_TLS_CERTIFICATE=/etc/letsencrypt/live/oxyta.net/fullchain.pem
+      - REGISTRY_HTTP_TLS_KEY=/etc/letsencrypt/live/oxyta.net/privkey.pem
