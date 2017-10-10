@@ -46,11 +46,12 @@ Say No
 
 ```
 # Set environment configuration
+
 echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" > cloud/.env
 echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> cloud/.env
 echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" > pad/.env
 echo "ETHERPAD_DB_PASSWORD=$MYSQL_ROOT_PASSWORD" >> pad/.env
-```
+
 # Deploy Services
 
 for service in pad git cloud frontal
