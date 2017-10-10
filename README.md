@@ -73,4 +73,4 @@ systemctl restart nginx
 
 ## Configure mail
 
-[doc](mail/howto.md)
+[doc](mail)
