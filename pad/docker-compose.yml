@@ -6,16 +6,17 @@ services:
     restart: always
     volumes:
       - /srv/etherpad/db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    env_file:
+      - .env
 
   app:
     image: tvelocity/etherpad-lite
     restart: always
     links:
       - db
+    env_file:
+      - .env
     environment:
       - ETHERPAD_DB_HOST=db
-      - ETHERPAD_DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
     ports:
       - "127.0.0.1:9001:9001"

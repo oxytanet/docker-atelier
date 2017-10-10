@@ -19,6 +19,7 @@ mkdir -p /etc/nginx/sites-enabled/ /srv/letsencrypt ~/.ssh
 pacman -Syu --noconfirm git docker docker-compose nginx certbot
 systemctl start docker
 systemctl enable docker
+systemctl enable nginx
 
 # Add keys
 cd
@@ -42,12 +43,20 @@ certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d $DO
 Say No
 
 ```
+# Set environment configuration
+```
+echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" > cloud/.env
+echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> cloud/.env
+echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" > pad/.env
+echo "ETHERPAD_DB_PASSWORD=$MYSQL_ROOT_PASSWORD" >> pad/.env
+```
 # Deploy Services
 
 for service in pad git cloud frontal
 do
     pushd $service
     ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/$service
+    export MAIL=services+$service@$DOMAIN
     [[ $service != frontal ]] && certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d $service.$DOMAIN,www.$service.$DOMAIN
     docker-compose up -d
     popd
