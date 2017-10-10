@@ -3,11 +3,11 @@ version: '2'
 services:
   app:
     image: gitlab/gitlab-ce
+    restart: always
     hostname: 'git.oxyta.net'
     environment:
       - GITLAB_OMNIBUS_CONFIG |
         external_url 'https://git.oxyta.net'
-        gitlab_rails['gitlab_shell_ssh_port'] = 2222
     volumes:
       - /srv/gitlab/app/config:/etc/gitlab
       - /srv/gitlab/app/logs:/var/log/gitlab
@@ -15,4 +15,4 @@ services:
     restart: always
     ports:
       - "127.0.0.1:9002:80"
-      - "127.0.0.1:2222:22"
+      - "22:22"

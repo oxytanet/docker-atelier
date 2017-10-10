@@ -11,6 +11,7 @@ services:
 
   app:
     image: tvelocity/etherpad-lite
+    restart: always
     links:
       - db
     environment:
