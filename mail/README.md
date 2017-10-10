@@ -46,3 +46,9 @@ gitlab_rails['gitlab_email_from'] = 'git@oxyta.net'
 gitlab_rails['gitlab_email_reply_to'] = 'services+git@oxyta.net'
 ```
 `docker exec git_app_1 gitlab-ctl reconfigure`
+
+# Nextcloud
+
+[https://cloud.oxyta.net/settings/admin/additional](https://cloud.oxyta.net/settings/admin/additional)
+
+![configuration](cloudmail.png)
