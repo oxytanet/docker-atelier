@@ -39,7 +39,8 @@ cd docker-atelier
 
 cp nginx.conf /etc/nginx
 systemctl restart nginx
-certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d $DOMAIN,www.$DOMAIN
+certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d  $(echo {,www.}{,pad.,git.,cloud.}$DOMAIN|tr ' ' ',')
+
 ```
 
 Say No
@@ -58,8 +59,6 @@ for service in pad git cloud frontal
 do
     pushd $service
     ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/$service
-    export MAIL=services+$service@$DOMAIN
-    [[ $service != frontal ]] && certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d $service.$DOMAIN,www.$service.$DOMAIN
     docker-compose up -d
     popd
 done
