@@ -26,6 +26,8 @@ default: services+$HOSTNAME@oxyta.net
 
 `echo "test." | msmtp -a default root`
 
+check [Gandi Webmail](https://webmail.gandi.net/)
+
 # Gitlab
 
 `/srv/gitlab/app/config/gitlab.rb`
