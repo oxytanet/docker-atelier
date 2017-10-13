@@ -39,13 +39,8 @@ cd docker-atelier
 
 cp nginx.conf /etc/nginx
 systemctl restart nginx
-certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -d  $(echo {,www.}{,pad.,git.,cloud.}$DOMAIN|tr ' ' ',')
+certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -n -d  $(echo {,www.}{,pad.,git.,cloud.}$DOMAIN|tr ' ' ',')
 
-```
-
-Say No
-
-```
 # Set environment configuration
 
 echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" > cloud/.env
