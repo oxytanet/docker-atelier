@@ -57,12 +57,11 @@ do
     docker-compose up -d
     popd
 done
-```
 
-## Restart nginx
+# Restart nginx
 
-```
 systemctl restart nginx
+
 ```
 
 ## Configure mail
