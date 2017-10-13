@@ -16,7 +16,7 @@ echo LANG="$LANG" > /etc/locale.conf
 mkdir -p /etc/nginx/sites-enabled/ /srv/letsencrypt ~/.ssh
 
 # Install packages
-pacman -Syu --noconfirm git docker docker-compose nginx certbot
+pacman -Syu --noconfirm git docker docker-compose nginx certbot msmtp-mta
 systemctl start docker
 systemctl enable docker
 systemctl enable nginx

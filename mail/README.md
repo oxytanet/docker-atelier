@@ -1,7 +1,3 @@
-# Install
-
-`pacman -S msmtp-mta`
-
 # Configure
 
 `/etc/msmtprc`:
