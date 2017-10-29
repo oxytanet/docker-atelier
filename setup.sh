@@ -20,8 +20,16 @@ echo "CHATONS_MAIL=$CHATONS_MAIL" >> .env
 
 # Export specific environment configuration
 
+mkdir -p cloud pad
+
 echo "MYSQL_PASSWORD=$CHATONS_MYSQL_PASSWORD" > cloud/.env
 echo "MYSQL_ROOT_PASSWORD=$CHATONS_MYSQL_ROOT_PASSWORD" >> cloud/.env
 echo "MYSQL_ROOT_PASSWORD=$CHATONS_MYSQL_ROOT_PASSWORD" > pad/.env
 echo "ETHERPAD_DB_PASSWORD=$CHATONS_MYSQL_ROOT_PASSWORD" >> pad/.env
 
+# Configure traefik
+
+mkdir -p "$CHATONS_ROOT_DIR/traefik"
+touch "$CHATONS_ROOT_DIR/traefik/acme.json"
+chmod 600 "$CHATONS_ROOT_DIR/traefik/acme.json"
+sed "s/###DOMAIN###/$CHATONS_DOMAIN/" traefik/traefik.toml > "$CHATONS_ROOT_DIR/traefik/traefik.toml"

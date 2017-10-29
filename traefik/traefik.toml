@@ -1,0 +1,32 @@
+debug = false
+checkNewVersion = true
+logLevel = "ERROR"
+defaultEntryPoints = ["https","http"]
+
+[web]
+# web ui on 8080
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.redirect]
+    # For this to work, there must be a corresponding frontend rule
+    # See https://github.com/containous/traefik/issues/919#issuecomment-311033114
+    # TODO For now the setup script replace those placeholders
+    regex = "^https://www.###DOMAIN###/(.*)"
+    replacement = "https://###DOMAIN###/$1"
+  [entryPoints.https.tls]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+watch = true
+exposedbydefault = false
+
+[acme]
+storage = "acme.json"
+entryPoint = "https"
+OnHostRule = true
