@@ -1,0 +1,92 @@
+version: '2'
+
+services:
+
+  ### SERVICE: cloud
+
+  cloud_db:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+    env_file:
+      - cloud/.env
+    networks:
+      - cloud
+    volumes:
+      - /srv/nextcloud/db:/var/lib/mysql
+
+  cloud_app:
+    image: nextcloud
+    restart: always
+    networks:
+      - cloud
+    ports:
+      - "127.0.0.1:9000:80"
+    volumes:
+      - /srv/nextcloud/app:/var/www/html
+
+  ### SERVICE: git
+
+  git_app:
+    image: gitlab/gitlab-ce
+    restart: always
+    environment:
+      - GITLAB_OMNIBUS_CONFIG |
+        external_url 'https://git.${DOMAIN}'
+    hostname: 'git.${DOMAIN}' # required by gitlab
+    networks:
+      - git
+    ports:
+      - "127.0.0.1:9002:80"
+      - "22:22"
+    volumes:
+      - /srv/gitlab/app/config:/etc/gitlab
+      - /srv/gitlab/app/logs:/var/log/gitlab
+      - /srv/gitlab/app/data:/var/opt/gitlab
+
+  ### SERVICE: homepage
+
+  homepage_app:
+    build: homepage
+    restart: always
+    networks:
+      - homepage
+    ports:
+      - "127.0.0.1:8999:80"
+
+  ### SERVICE: pad
+
+  pad_db:
+    image: mysql
+    restart: always
+    env_file:
+      - pad/.env
+    networks:
+      - pad
+    volumes:
+      - /srv/etherpad/db:/var/lib/mysql
+
+  pad_app:
+    build: pad
+    restart: always
+    env_file:
+      - pad/.env
+    environment:
+      - ETHERPAD_DB_HOST=pad_db
+      - ETHERPAD_TITLE=Bloc Note
+    networks:
+      - pad
+    ports:
+      - "127.0.0.1:9001:9001"
+    volumes:
+      - /srv/etherpad/app:/opt/etherpad-lite/var
+
+### NETWORKS
+
+networks:
+  cloud:
+  git:
+  homepage:
+  pad:
