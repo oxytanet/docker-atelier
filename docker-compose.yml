@@ -15,7 +15,7 @@ services:
     networks:
       - cloud
     volumes:
-      - /srv/nextcloud/db:/var/lib/mysql
+      - ${CHATONS_ROOT_DIR}/nextcloud/db:/var/lib/mysql
 
   cloud_app:
     image: nextcloud
@@ -25,7 +25,7 @@ services:
     ports:
       - "127.0.0.1:9000:80"
     volumes:
-      - /srv/nextcloud/app:/var/www/html
+      - ${CHATONS_ROOT_DIR}/nextcloud/app:/var/www/html
 
   ### SERVICE: git
 
@@ -34,17 +34,17 @@ services:
     restart: always
     environment:
       - GITLAB_OMNIBUS_CONFIG |
-        external_url 'https://git.${DOMAIN}'
-    hostname: 'git.${DOMAIN}' # required by gitlab
+        external_url 'https://git.${CHATONS_DOMAIN}'
+    hostname: 'git.${CHATONS_DOMAIN}' # required by gitlab
     networks:
       - git
     ports:
       - "127.0.0.1:9002:80"
       - "22:22"
     volumes:
-      - /srv/gitlab/app/config:/etc/gitlab
-      - /srv/gitlab/app/logs:/var/log/gitlab
-      - /srv/gitlab/app/data:/var/opt/gitlab
+      - ${CHATONS_ROOT_DIR}/gitlab/app/config:/etc/gitlab
+      - ${CHATONS_ROOT_DIR}/gitlab/app/logs:/var/log/gitlab
+      - ${CHATONS_ROOT_DIR}/gitlab/app/data:/var/opt/gitlab
 
   ### SERVICE: homepage
 
@@ -66,7 +66,7 @@ services:
     networks:
       - pad
     volumes:
-      - /srv/etherpad/db:/var/lib/mysql
+      - ${CHATONS_ROOT_DIR}/etherpad/db:/var/lib/mysql
 
   pad_app:
     build: pad
@@ -81,7 +81,7 @@ services:
     ports:
       - "127.0.0.1:9001:9001"
     volumes:
-      - /srv/etherpad/app:/opt/etherpad-lite/var
+      - ${CHATONS_ROOT_DIR}/etherpad/app:/opt/etherpad-lite/var
 
 ### NETWORKS
 
