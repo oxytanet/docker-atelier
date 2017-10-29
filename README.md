@@ -50,7 +50,7 @@ echo "ETHERPAD_DB_PASSWORD=$MYSQL_ROOT_PASSWORD" >> pad/.env
 
 # Deploy Services
 
-for service in pad git cloud frontal
+for service in pad git cloud homepage
 do
     pushd $service
     ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/$service
