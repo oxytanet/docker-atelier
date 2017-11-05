@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
 
@@ -25,6 +25,7 @@ services:
       - traefik
     labels:
       - "traefik.backend=nextcloud"
+      # See README and https://github.com/containous/traefik/issues/2348 for network name
       - "traefik.docker.network=oxyta_traefik"
       - "traefik.frontend.rule=Host:cloud.${CHATONS_DOMAIN}"
       - "traefik.enable=true"
@@ -48,6 +49,7 @@ services:
     hostname: 'git.${CHATONS_DOMAIN}' # required by gitlab
     labels:
       - "traefik.backend=gitlab"
+      # See README and https://github.com/containous/traefik/issues/2348 for network name
       - "traefik.docker.network=oxyta_traefik"
       - "traefik.frontend.rule=Host:git.${CHATONS_DOMAIN}"
       - "traefik.enable=true"
@@ -71,6 +73,7 @@ services:
       - traefik
     labels:
       - "traefik.backend=homepage"
+      # See README and https://github.com/containous/traefik/issues/2348 for network name
       - "traefik.docker.network=oxyta_traefik"
       # note: www must also be present because we need its certificate
       # and it is required for traefik redirection to work too (in traefik.yml)
@@ -106,6 +109,7 @@ services:
       - ETHERPAD_TITLE=Bloc Note
     labels:
       - "traefik.backend=etherpad"
+      # See README and https://github.com/containous/traefik/issues/2348 for network name
       - "traefik.docker.network=oxyta_traefik"
       - "traefik.frontend.rule=Host:pad.${CHATONS_DOMAIN}"
       - "traefik.enable=true"

@@ -2,24 +2,36 @@
 
 [Pad](https://mypads.framapad.org/mypads/?/mypads/group/altermediatic-toulouse-deatm79d/pad/view/docker-atelier-acqwh7km)
 
-## Install on a clean Arch
+## Install
 
 ```
-# Set variables
-export LANG=en_US.UTF-8
-export DOMAIN=oxyta.net
-export MAIL=services@$DOMAIN
-export MYSQL_PASSWORD=$(openssl rand -base64 32)
-export MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)
+# Install docker
+# See https://docs.docker.com/engine/installation/linux/docker-ce/debian/#install-using-the-repository
+apt install \
+     apt-transport-https \
+     ca-certificates \
+     curl \
+     gnupg2 \
+     software-properties-common
 
-echo LANG="$LANG" > /etc/locale.conf
-mkdir -p /etc/nginx/sites-enabled/ /srv/letsencrypt ~/.ssh
+curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add -
 
-# Install packages
-pacman -Syu --noconfirm git docker docker-compose nginx certbot msmtp-mta
+echo \
+   "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+   $(lsb_release -cs) \
+   stable" \
+   > /etc/apt/source.list.d/docker.list
+
+apt update && apt install docker-ce msmtp python-pip
+
+# install docker-compose
+pip install docker-compose
+
+# Start docker
 systemctl start docker
 systemctl enable docker
-systemctl enable nginx
+
+# Change SSH port (because 22 will be used by gitlab)
 echo 'Port 222' >> /etc/ssh/sshd_config
 systemctl restart sshd
 
@@ -35,35 +47,18 @@ cd
 git clone https://framagit.org/altermediatic/docker-atelier.git
 cd docker-atelier
 
-# Get main Lets Encrypt cert
-
-cp nginx.conf /etc/nginx
-systemctl restart nginx
-certbot certonly --email $MAIL --webroot -w /srv/letsencrypt/ --agree-tos -n -d  $(echo {,www.}{,pad.,git.,cloud.}$DOMAIN|tr ' ' ',')
-
-# Set environment configuration
-
-echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" > cloud/.env
-echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> cloud/.env
-echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" > pad/.env
-echo "ETHERPAD_DB_PASSWORD=$MYSQL_ROOT_PASSWORD" >> pad/.env
+# Configure environment variables in setup.sh then run it
+./setup.sh
 
 # Deploy Services
-
-for service in pad git cloud homepage
-do
-    pushd $service
-    ln -s $PWD/nginx.conf /etc/nginx/sites-enabled/$service
-    docker-compose up -d
-    popd
-done
-
-# Restart nginx
-
-systemctl restart nginx
-
+# Note: docker-compose's traefik.docker.network contains references to the project's name (see https://github.com/containous/traefik/issues/2348)
+docker-compose -d -p oxyta up
 ```
 
 ## Configure mail
 
 [doc](mail)
+
+## Update homepage
+
+docker-compose build --no-cache
