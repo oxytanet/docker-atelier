@@ -10,13 +10,16 @@ services:
       - .env
 
   app:
-    image: tvelocity/etherpad-lite
+    build: .
     restart: always
     links:
       - db
+    volumes:
+      - /srv/etherpad/app:/opt/etherpad-lite/var
     env_file:
       - .env
     environment:
       - ETHERPAD_DB_HOST=db
+      - ETHERPAD_TITLE=Bloc Note
     ports:
       - "127.0.0.1:9001:9001"
