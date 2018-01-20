@@ -1,9 +1,16 @@
 #!/bin/sh
 
-# Set variables
+## You can (should) customize those variables
+# the docker-compose project name
+export CHATONS_COMPOSE_PROJECT=oxyta
+# the host directory for the containers' volumes
 export CHATONS_ROOT_DIR=/srv
+# the domain name for all services
 export CHATONS_DOMAIN=oxyta.net
+# the email to which services will send important email
 export CHATONS_MAIL=services@$CHATONS_DOMAIN
+
+## Thos does not need customization
 export CHATONS_MYSQL_PASSWORD=$(openssl rand -base64 32)
 export CHATONS_MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)
 
@@ -14,7 +21,8 @@ fi
 
 # Export common environment variables
 
-echo "CHATONS_ROOT_DIR=$CHATONS_ROOT_DIR" > .env
+echo "COMPOSE_PROJECT_NAME=$CHATONS_COMPOSE_PROJECT" > .env
+echo "CHATONS_ROOT_DIR=$CHATONS_ROOT_DIR" >> .env
 echo "CHATONS_DOMAIN=$CHATONS_DOMAIN" >> .env
 echo "CHATONS_MAIL=$CHATONS_MAIL" >> .env
 

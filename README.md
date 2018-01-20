@@ -50,9 +50,8 @@ cd docker-atelier
 # Configure environment variables in setup.sh then run it
 ./setup.sh
 
-# Deploy Services
-# Note: docker-compose's traefik.docker.network contains references to the project's name (see https://github.com/containous/traefik/issues/2348)
-docker-compose -d -p oxyta up
+# Deploy Services (project name should only be set via the setup.sh file!)
+docker-compose -d up
 ```
 
 ## Configure mail
