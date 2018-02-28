@@ -22,10 +22,10 @@ echo \
    stable" \
    > /etc/apt/sources.list.d/docker.list
 
-apt update && apt install docker-ce msmtp python-pip
+apt update && apt install docker-ce msmtp python3-pip
 
 # install docker-compose
-pip install docker-compose
+pip3 install docker-compose
 
 # Start docker
 systemctl start docker
