@@ -54,7 +54,7 @@ services:
   ### SERVICE: pad
 
   pad_db:
-    image: mysql
+    image: mariadb
     restart: always
     env_file:
       - pad/.env
