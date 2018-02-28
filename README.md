@@ -20,7 +20,7 @@ echo \
    "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
    $(lsb_release -cs) \
    stable" \
-   > /etc/apt/source.list.d/docker.list
+   > /etc/apt/sources.list.d/docker.list
 
 apt update && apt install docker-ce msmtp python-pip
 
