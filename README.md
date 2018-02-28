@@ -47,7 +47,7 @@ cd docker-atelier
 ./setup.sh
 
 # Deploy Services (project name should only be set via the setup.sh file!)
-docker-compose -d up
+docker-compose up -d
 ```
 
 ## Configure mail
