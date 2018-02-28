@@ -1,6 +1,9 @@
 #Avant Propos / Preface
+
 (English version below)
+
 ##Français
+
 Si vous arrivez ici par hasard, un petit historique s'impose.
 Il était une fois, une petite association qui vivait dans les bois français et qui voulait favoriser la décentralisation des services. Cette association, appelée framasoft se rendit bien compte que pour pouvoir proposer des services alternatifs aux grands méchants de cette histoire, la famille des géants GAFAM, il fallait à la fois proposer des services fonctionnels, mais de surcroit les multiplier localement. De cette manière, les petits poucet locaux, ou les associations de petits poucet, pourraient frapper physiquement à la porte d'un Collectif des Hébergeurs Alternatifs, Transparents, Ouverts, Neutres et Solidaires, un CHATONS.
 
@@ -8,6 +11,7 @@ Trêve d'histoire. Étant bien entendu que les CHATONS vont sauver le web,  ce p
 Le but étant de fournir un unique script d'installation tournant sur une fresh install de debian pour obtenir un CHATONS fonctionnel.
 
 ##English
+
 Hey ! welcome to our English speakers friends !
 If you stumble upon this project, you'll need little story.
 Once upon a time, there was a little organization, called Framasoft, who used to live in the French woods. She wanted to decentralize hosting and other service trusted by the big bad guys of this story, the GAFAM family. In order to do so, they had to offer not only functional services, but develop a network of small groups which will provide hosting services locally.  The local families and organization could then ask one of the locals Keen Internet Talented Teams Engaged in Network Services, a KITTENS, to provide  fair services.
@@ -15,10 +19,15 @@ Once upon a time, there was a little organization, called Framasoft, who used to
 Joking aside, as KITTENS will save the world-wide web, this project aim at easing the deployment of a KITTENS , CHATONS in French  (https://framablog.org/tag/chatons/). In other words, we aim at an automatic deployment of a fair-hosting service following chatons.org rules, in single script launchable on a French install of debian.
 
 #Installation
+
 ##Français
-###Pré-requis
+
+###Pré-
+
 Pour pouvoir installer un CHATONS, vous devez disposer d'une nouvelle installation de debian
+
 ###Installation
+
 pour installer et configurer un CHATONS, télécharger le script install.md et lancer avec les droits root.
 
 ##English
