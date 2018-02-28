@@ -35,33 +35,6 @@ services:
     volumes:
       - ${CHATONS_ROOT_DIR}/nextcloud/app:/var/www/html
 
-  ### SERVICE: git
-
-  git_app:
-    image: gitlab/gitlab-ce
-    restart: always
-    depends_on:
-      - traefik
-    environment:
-      - GITLAB_OMNIBUS_CONFIG |
-        external_url 'https://git.${CHATONS_DOMAIN}'
-    hostname: 'git.${CHATONS_DOMAIN}' # required by gitlab
-    labels:
-      - "traefik.backend=gitlab"
-      - "traefik.docker.network=${COMPOSE_PROJECT_NAME}_traefik"
-      - "traefik.frontend.rule=Host:git.${CHATONS_DOMAIN}"
-      - "traefik.enable=true"
-      - "traefik.port=80"
-    networks:
-      - git
-      - traefik
-    ports:
-      - "22:22"
-    volumes:
-      - ${CHATONS_ROOT_DIR}/gitlab/app/config:/etc/gitlab
-      - ${CHATONS_ROOT_DIR}/gitlab/app/logs:/var/log/gitlab
-      - ${CHATONS_ROOT_DIR}/gitlab/app/data:/var/opt/gitlab
-
   ### SERVICE: homepage
 
   homepage_app:
@@ -138,6 +111,5 @@ services:
 networks:
   traefik:
   cloud:
-  git:
   homepage:
   pad:

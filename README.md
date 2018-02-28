@@ -31,10 +31,6 @@ pip install docker-compose
 systemctl start docker
 systemctl enable docker
 
-# Change SSH port (because 22 will be used by gitlab)
-echo 'Port 222' >> /etc/ssh/sshd_config
-systemctl restart sshd
-
 # Add keys
 cd
 git clone https://framagit.org/altermediatic/keys.git
