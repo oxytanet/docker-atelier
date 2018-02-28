@@ -1,5 +1,7 @@
 #!/bin/sh
 
+[[ -f .env ]] && echo "JUST DONT" && exit 1
+
 ## You can (should) customize those variables
 # the docker-compose project name
 export CHATONS_COMPOSE_PROJECT=oxyta
