@@ -4,4 +4,4 @@
 
 # Procédure d’installation
 
-(install instructions)[install.md]
+[install instructions](install.md)
