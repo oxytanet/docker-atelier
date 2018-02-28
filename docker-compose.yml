@@ -22,7 +22,6 @@ services:
     restart: always
     depends_on:
       - cloud_db
-      - traefik
     labels:
       - "traefik.backend=nextcloud"
       - "traefik.docker.network=${COMPOSE_PROJECT_NAME}_traefik"
@@ -40,8 +39,6 @@ services:
   homepage_app:
     build: homepage
     restart: always
-    depends_on:
-      - traefik
     labels:
       - "traefik.backend=homepage"
       - "traefik.docker.network=${COMPOSE_PROJECT_NAME}_traefik"
@@ -71,7 +68,6 @@ services:
     restart: always
     depends_on:
       - pad_db
-      - traefik
     env_file:
       - pad/.env
     environment:
