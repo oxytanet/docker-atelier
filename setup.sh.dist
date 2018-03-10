@@ -42,4 +42,3 @@ echo "ETHERPAD_DB_PASSWORD=$CHATONS_MYSQL_ROOT_PASSWORD" >> pad/.env
 mkdir -p "$CHATONS_ROOT_DIR/traefik"
 touch "$CHATONS_ROOT_DIR/traefik/acme.json"
 chmod 600 "$CHATONS_ROOT_DIR/traefik/acme.json"
-sed "s/###DOMAIN###/$CHATONS_DOMAIN/g" traefik/traefik.toml > "$CHATONS_ROOT_DIR/traefik/traefik.toml"
