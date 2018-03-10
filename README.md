@@ -24,7 +24,9 @@ Joking aside, as KITTENS will save the world-wide web, this project aims at easi
 
 ### Pré-requis
 
-Pour pouvoir installer un CHATONS, vous devez disposer d'une nouvelle installation de debian
+Pour pouvoir installer un CHATONS, vous devez disposer :
+- d'une machine/VM avec une nouvelle installation de debian
+- du domaine et des sous-domaines (cf. services présent dans `docker-compose.yml`) pointant sur l'ip publique de cette machine
 
 ### Installation
 
