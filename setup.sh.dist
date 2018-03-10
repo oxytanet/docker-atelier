@@ -30,8 +30,6 @@ echo "CHATONS_MAIL=$CHATONS_MAIL" >> .env
 
 # Export specific environment configuration
 
-mkdir -p cloud pad
-
 echo "MYSQL_PASSWORD=$CHATONS_MYSQL_PASSWORD" > cloud/.env
 echo "MYSQL_ROOT_PASSWORD=$CHATONS_MYSQL_ROOT_PASSWORD" >> cloud/.env
 echo "MYSQL_ROOT_PASSWORD=$CHATONS_MYSQL_ROOT_PASSWORD" > pad/.env
