@@ -31,13 +31,9 @@ exposedbydefault = false
 # the email is set on the command line
 storage = "acme.json"
 entryPoint = "https"
-#OnHostRule = true
-acmeLogging = true
+OnHostRule = true
+#acmeLogging = true
 #caServer = "https://acme-staging.api.letsencrypt.org/directory"
 [acme.httpChallenge]
   entryPoint = "http"
-
-[[acme.domains]]
-  main = "###DOMAIN###"
-  sans = ["www.###DOMAIN###", "pad.###DOMAIN###", "cloud.###DOMAIN###"]
 
