@@ -1,0 +1,111 @@
+version: '3'
+
+services:
+
+  ### SERVICE: cloud
+
+  cloud_db:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+    env_file:
+      - cloud/.env
+    networks:
+      - cloud
+    volumes:
+      - ${CHATONS_ROOT_DIR}/nextcloud/db:/var/lib/mysql
+
+  cloud_app:
+    image: nextcloud
+    restart: always
+    depends_on:
+      - cloud_db
+    labels:
+      - "traefik.backend=nextcloud"
+      - "traefik.docker.network=${COMPOSE_PROJECT_NAME}_traefik"
+      - "traefik.frontend.rule=Host:cloud.${CHATONS_DOMAIN}"
+      - "traefik.enable=true"
+      - "traefik.port=80"
+    networks:
+      - cloud
+      - traefik
+    volumes:
+      - ${CHATONS_ROOT_DIR}/nextcloud/app:/var/www/html
+
+  ### SERVICE: homepage
+
+  homepage_app:
+    build: homepage
+    restart: always
+    labels:
+      - "traefik.backend=homepage"
+      - "traefik.docker.network=${COMPOSE_PROJECT_NAME}_traefik"
+      # note: www must also be present because we need its certificate
+      # and it is required for traefik redirection to work too (in traefik.yml)
+      - "traefik.frontend.rule=Host:${CHATONS_DOMAIN},www.${CHATONS_DOMAIN}"
+      - "traefik.enable=true"
+      - "traefik.port=80"
+    networks:
+      - homepage
+      - traefik
+
+  ### SERVICE: pad
+
+  pad_db:
+    image: mariadb
+    restart: always
+    env_file:
+      - pad/.env
+    networks:
+      - pad
+    volumes:
+      - ${CHATONS_ROOT_DIR}/etherpad/db:/var/lib/mysql
+
+  pad_app:
+    build: pad
+    restart: always
+    depends_on:
+      - pad_db
+    env_file:
+      - pad/.env
+    environment:
+      - ETHERPAD_DB_HOST=pad_db
+      - ETHERPAD_TITLE=Bloc Note
+    labels:
+      - "traefik.backend=etherpad"
+      - "traefik.docker.network=${COMPOSE_PROJECT_NAME}_traefik"
+      - "traefik.frontend.rule=Host:pad.${CHATONS_DOMAIN}"
+      - "traefik.enable=true"
+      - "traefik.port=9001"
+    networks:
+      - pad
+      - traefik
+    volumes:
+      - ${CHATONS_ROOT_DIR}/etherpad/app:/opt/etherpad-lite/var
+
+### TRAEFIK
+
+  traefik:
+    image: traefik
+    command: --docker.domain=${CHATONS_DOMAIN} --acme.email=${CHATONS_MAIL}
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+      - 127.0.0.1:8080:8080
+    networks:
+      - traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${CHATONS_ROOT_DIR}/traefik/acme.json:/acme.json
+      - ${CHATONS_ROOT_DIR}/traefik/traefik.toml:/traefik.toml
+
+### NETWORKS
+
+networks:
+  traefik:
+  cloud:
+  homepage:
+  pad:
