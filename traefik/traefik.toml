@@ -24,7 +24,8 @@ defaultEntryPoints = ["https","http"]
 # the domain is set on the command line
 endpoint = "unix:///var/run/docker.sock"
 watch = true
-exposedbydefault = false
+exposedbydefault = true
+domain = "docker.localhost"
 
 [acme]
 # the email is set on the command line

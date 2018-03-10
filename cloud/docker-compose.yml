@@ -1,0 +1,31 @@
+version: '3'
+
+networks:
+  traefik:
+    external: true
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR}/nextcloud/db:/var/lib/mysql
+
+  app:
+    image: nextcloud
+    restart: always
+    depends_on:
+      - cloud_db
+    labels:
+      - "traefik.backend=nextcloud"
+      - "traefik.frontend.rule=Host:cloud.${CHATONS_DOMAIN},www.cloud.${CHATONS_DOMAIN}"
+    networks:
+      - traefik
+      - default
+    volumes:
+      - ${CHATONS_ROOT_DIR}/nextcloud/app:/var/www/html

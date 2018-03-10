@@ -1,0 +1,31 @@
+version: '3'
+
+networks:
+  traefik:
+    external: true
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR}/etherpad/db:/var/lib/mysql
+
+  app:
+    build: .
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - ETHERPAD_DB_HOST=pad_db
+      - ETHERPAD_TITLE=Bloc Note
+    labels:
+      - "traefik.backend=etherpad"
+      - "traefik.frontend.rule=Host:pad.${CHATONS_DOMAIN}"
+    networks:
+      - default
+      - traefik
+    volumes:
+      - ${CHATONS_ROOT_DIR}/etherpad/app:/opt/etherpad-lite/var

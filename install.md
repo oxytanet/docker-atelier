@@ -44,8 +44,19 @@ cp setup.sh.dist setup.sh
 vim setup.sh
 ./setup.sh
 
-# Deploy Services (project name should only be set via the setup.sh file!)
+# Deploy traefik
+docker network create traefik
+cd traefik
 docker-compose up -d
+cd ..
+
+# Deploy the services you want
+for service in pad cloud homepage
+do
+    pushd $service
+    docker-compose up -d
+    popd
+done
 ```
 
 ## Configure mail

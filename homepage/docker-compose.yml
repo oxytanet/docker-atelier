@@ -1,0 +1,17 @@
+version: '3'
+
+networks:
+  traefik:
+    external: true
+
+services:
+  app:
+    build: .
+    restart: always
+    labels:
+      - "traefik.backend=homepage"
+      # note: www must also be present because we need its certificate
+      # and it is required for traefik redirection to work too (in traefik.yml)
+      - "traefik.frontend.rule=Host:${CHATONS_DOMAIN},www.${CHATONS_DOMAIN}"
+    networks:
+      - traefik
