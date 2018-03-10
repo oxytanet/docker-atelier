@@ -40,6 +40,8 @@ git clone https://framagit.org/altermediatic/docker-atelier.git
 cd docker-atelier
 
 # Configure environment variables in setup.sh then run it
+cp setup.sh.dist setup.sh
+vim setup.sh
 ./setup.sh
 
 # Deploy Services (project name should only be set via the setup.sh file!)
