@@ -16,9 +16,8 @@ defaultEntryPoints = ["https","http"]
     [entryPoints.https.redirect]
     # For this to work, there must be a corresponding frontend rule
     # See https://github.com/containous/traefik/issues/919#issuecomment-311033114
-    # TODO For now the setup script replace those placeholders
-    regex = "^https://www.###DOMAIN###/(.*)"
-    replacement = "https://###DOMAIN###/$1"
+    regex = "^https://www.(.*)"
+    replacement = "https://$1"
   [entryPoints.https.tls]
 
 [docker]
