@@ -1,0 +1,51 @@
+version: '2'
+
+volumes:
+  sql:
+
+services:
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+  postgres:
+    image: postgres:10-alpine
+    restart: unless-stopped
+    volumes:
+      - "sql:/var/lib/postgresql/data"
+  sentry:
+    image: sentry
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - traefik
+      - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host: sentry.${DOMAIN_NAME:-local}"
+      - "traefik.docker.network=traefik"
+    environment:
+      - SENTRY_REDIS_HOST=redis
+      - SENTRY_POSTGRES_HOST=postgres
+  cron:
+    command: "sentry run cron"
+    image: sentry
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - SENTRY_REDIS_HOST=redis
+      - SENTRY_POSTGRES_HOST=postgres
+  worker:
+    command: "sentry run worker"
+    image: sentry
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - SENTRY_REDIS_HOST=redis
+      - SENTRY_POSTGRES_HOST=postgres
+
+networks:
+  traefik:
+    external: true
