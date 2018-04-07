@@ -27,6 +27,7 @@ services:
     environment:
       - SENTRY_REDIS_HOST=redis
       - SENTRY_POSTGRES_HOST=postgres
+      - SENTRY_SERVER_EMAIL=sentry@${DOMAIN_NAME}
   cron:
     command: "sentry run cron"
     image: sentry
