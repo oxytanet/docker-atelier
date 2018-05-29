@@ -1,0 +1,6 @@
+[submodule "traefik-dev"]
+	path = traefik-dev
+	url = git@github.com:nim65s/traefik-dev.git
+[submodule "traefik-prod"]
+	path = traefik-prod
+	url = git@github.com:nim65s/traefik-prod.git

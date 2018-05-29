@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ${CHATONS_ROOT_DIR}/etherpad/db:/var/lib/mysql
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/etherpad/db:/var/lib/mysql
 
   app:
     build: .
@@ -19,13 +19,15 @@ services:
     env_file:
       - .env
     environment:
-      - ETHERPAD_DB_HOST=pad_db
+      - ETHERPAD_DB_HOST=db
       - ETHERPAD_TITLE=Bloc Note
     labels:
-      - "traefik.backend=etherpad"
-      - "traefik.frontend.rule=Host:pad.${CHATONS_DOMAIN}"
+      traefik.enable: "true"
+      traefik.backend: "etherpad"
+      traefik.frontend.rule: "Host: pad.${CHATONS_DOMAIN:-local}, www.pad.${CHATONS_DOMAIN:-local}"
+      traefik.docker.network: "traefik"
     networks:
       - default
       - traefik
     volumes:
-      - ${CHATONS_ROOT_DIR}/etherpad/app:/opt/etherpad-lite/var
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/etherpad/app:/opt/etherpad-lite/var
