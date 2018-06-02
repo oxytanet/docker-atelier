@@ -46,7 +46,7 @@ cd docker-atelier
 docker network create proxytanet
 ```
 
-And then you can go in `proxy/` and in the environment you want:
+And then you can go in the `proxy/` folder and in the environment you want:
 - [dev](https://framagit.org/nim65s/proxyta.net/tree/master/dev)
 - [prod with letsencrypt](https://framagit.org/nim65s/proxyta.net/tree/master/prod-le/) (look at the README first)
 - [prod with your certificates](https://framagit.org/nim65s/proxyta.net/tree/master/prod-ssl/) (look at the README first)
@@ -61,9 +61,9 @@ echo "export ACME_EMAIL=acme@${CHATONS_DOMAIN}" >> .bashrc
 
 ## Deploy the services you want
 
-- [nextcloud](cloud/)
-- [etherpad](pad/)
-- [homepage](homepage/)
+- [nextcloud](cloud/) (in the `cloud/` folder)
+- [etherpad](pad/) (in the `pad/` folder)
+- [oxyta.net's homepage](homepage/) (in the `homepage/` folder)
 
 ## Configure mail
 
