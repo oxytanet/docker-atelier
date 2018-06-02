@@ -21,9 +21,9 @@ services:
       - proxytanet
       - default
     labels:
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host: sentry.${DOMAIN_NAME:-local}"
-      - "traefik.docker.network=proxytanet"
+      traefik.enable: "true"
+      traefik.frontend.rule: "Host: sentry.${CHATONS_DOMAIN:-local}, www.sentry.${CHATONS_DOMAIN:-local}"
+      traefik.docker.network: "proxytanet"
     environment:
       - SENTRY_REDIS_HOST=redis
       - SENTRY_POSTGRES_HOST=postgres
