@@ -22,7 +22,7 @@ services:
       - default
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: sentry.${CHATONS_DOMAIN:-local}, www.sentry.${CHATONS_DOMAIN:-local}"
+      traefik.frontend.rule: "Host: sentry.${DOMAIN_NAME}, www.sentry.${DOMAIN_NAME}"
       traefik.docker.network: "proxytanet"
     environment:
       - SENTRY_REDIS_HOST=redis
