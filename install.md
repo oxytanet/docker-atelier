@@ -45,10 +45,11 @@ cd docker-atelier
 ```
 docker network create proxytanet
 ```
-And then
-- [dev](proxy/dev/)
-- [prod with letsencrypt](proxy/prod-le/) (look at the README first)
-- [prod with your certificates](proxy/prod-ssl/) (look at the README first)
+
+And then you can go in `proxy/` and in the environment you want:
+- [dev](https://framagit.org/nim65s/proxyta.net/tree/master/dev)
+- [prod with letsencrypt](https://framagit.org/nim65s/proxyta.net/tree/master/prod-le/) (look at the README first)
+- [prod with your certificates](https://framagit.org/nim65s/proxyta.net/tree/master/prod-ssl/) (look at the README first)
 
 ## Configure your domain name and email addresses
 
