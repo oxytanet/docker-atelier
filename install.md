@@ -37,7 +37,7 @@ ln -s ../keys/ssh authorized_keys
 ## Add this repo
 ```
 cd
-git clone https://framagit.org/altermediatic/docker-atelier.git
+git clone --recursive https://framagit.org/altermediatic/docker-atelier.git
 cd docker-atelier
 ```
 
