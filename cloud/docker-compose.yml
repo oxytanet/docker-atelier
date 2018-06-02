@@ -1,37 +1,30 @@
 version: '3'
 
 networks:
-  traefik:
+  proxytanet:
     external: true
 
 services:
   db:
     image: mariadb
     restart: always
-    environment:
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
     env_file:
       - .env
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/db:/var/lib/mysql
 
   app:
-    image: nextcloud
+    image: nextcloud:fpm-alpine
     restart: always
-    environment:
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
-      - MYSQL_HOST=db:3306
     env_file:
       - .env
     labels:
       traefik.enable: "true"
       traefik.backend: "nextcloud"
       traefik.frontend.rule: "Host: cloud.${CHATONS_DOMAIN:-local}, www.cloud.${CHATONS_DOMAIN:-local}"
-      traefik.docker.network: "traefik"
+      traefik.docker.network: "proxytanet"
     networks:
-      - traefik
+      - proxytanet
       - default
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/app:/var/www/html
