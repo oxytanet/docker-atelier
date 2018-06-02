@@ -18,6 +18,14 @@ services:
     restart: always
     env_file:
       - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/app:/var/www/html
+
+  web:
+    build: .
+    restart: always
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/app:/var/www/html:ro
     labels:
       traefik.enable: "true"
       traefik.backend: "nextcloud"
@@ -26,5 +34,3 @@ services:
     networks:
       - proxytanet
       - default
-    volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/app:/var/www/html
