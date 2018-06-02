@@ -1,6 +1,10 @@
-# Sentry w/ docker-compose & traefik
+# Sentry on proxyta.net
 
-You need a [traefik](https://traefik.io/) instance first, like https://github.com/nim65s/traefik-prod
+## Reverse Proxy
+
+This config needs a reverse proxy, like [proxyta.net](https://framagit.org/nim65s/proxyta.net)
+
+## Configure
 
 ```bash
 echo SENTRY_SECRET_KEY=$(openssl rand -base64 32) >> .env
@@ -11,6 +15,8 @@ echo SENTRY_EMAIL_USER= >> .env
 echo SENTRY_EMAIL_PASSWORD= >> .env
 echo SENTRY_EMAIL_USE_TLS= >> .env
 ```
+
+## Deploy
 
 ```bash
 docker-compose up -d

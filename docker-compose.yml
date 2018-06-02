@@ -18,12 +18,12 @@ services:
     env_file:
       - .env
     networks:
-      - traefik
+      - proxytanet
       - default
     labels:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host: sentry.${DOMAIN_NAME:-local}"
-      - "traefik.docker.network=traefik"
+      - "traefik.docker.network=proxytanet"
     environment:
       - SENTRY_REDIS_HOST=redis
       - SENTRY_POSTGRES_HOST=postgres
@@ -48,5 +48,5 @@ services:
       - SENTRY_POSTGRES_HOST=postgres
 
 networks:
-  traefik:
+  proxytanet:
     external: true
