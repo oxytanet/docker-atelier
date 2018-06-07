@@ -1,0 +1,16 @@
+version: '3'
+
+networks:
+  proxytanet:
+    external: true
+
+services:
+  app:
+    build: .
+    restart: always
+    labels:
+      traefik.enable: "true"
+      traefik.backend: "homepage"
+      traefik.frontend.rule: "Host: ${CHATONS_DOMAIN:-local}, www.${CHATONS_DOMAIN:-local}"
+    networks:
+      - proxytanet

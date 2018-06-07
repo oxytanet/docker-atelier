@@ -1,4 +1,4 @@
-FROM node:alpine as build
+FROM node:9-alpine as build
 
 RUN apk add --no-cache curl
 RUN mkdir /front-pad

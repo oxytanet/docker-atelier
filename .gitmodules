@@ -1,0 +1,3 @@
+[submodule "proxyta.net"]
+	path = proxy
+	url = ../../nim65s/proxyta.net

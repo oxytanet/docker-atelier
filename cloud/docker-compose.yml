@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  proxytanet:
+    external: true
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/db:/var/lib/mysql
+
+  app:
+    image: nextcloud:fpm-alpine
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/app:/var/www/html
+
+  web:
+    build: .
+    restart: always
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/app:/var/www/html:ro
+    labels:
+      traefik.enable: "true"
+      traefik.backend: "nextcloud"
+      traefik.frontend.rule: "Host: cloud.${CHATONS_DOMAIN:-local}, www.cloud.${CHATONS_DOMAIN:-local}"
+      traefik.docker.network: "proxytanet"
+    networks:
+      - proxytanet
+      - default

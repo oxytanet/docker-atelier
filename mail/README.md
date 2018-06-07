@@ -1,3 +1,8 @@
+# Install msmtp
+
+```
+apt install -y msmtp
+```
 # Configure
 
 `/etc/msmtprc`:
