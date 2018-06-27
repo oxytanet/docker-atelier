@@ -27,3 +27,9 @@ echo PEERTUBE_SMTP_TLS=true >> .env
 ```
 docker-compose up -d
 ```
+
+## Get `root`'s password
+
+```
+docker-compose logs | grep password
+```
