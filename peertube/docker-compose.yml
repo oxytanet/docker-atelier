@@ -1,0 +1,41 @@
+version: "3"
+
+networks:
+  proxytanet:
+    external: true
+
+services:
+  app:
+    image: chocobozzz/peertube:production-stretch
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - PEERTUBE_WEBSERVER_HOSTNAME=peertube.${CHATONS_DOMAIN:-local}
+      - PEERTUBE_SMTP_USERNAME=peertube@${CHATONS_DOMAIN:-local}
+      - PEERTUBE_SMTP_FROM=peertube@${CHATONS_DOMAIN:-local}
+      - PEERTUBE_ADMIN_EMAIL=peertube@${CHATONS_DOMAIN:-local}
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "Host: peertube.${CHATONS_DOMAIN:-local}, www.peertube.${CHATONS_DOMAIN:-local}"
+      traefik.docker.network: "proxytanet"
+    networks:
+      - proxytanet
+      - default
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/peertube/data:/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/peertube/config:/config
+
+  db:
+    image: postgres:10-alpine
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/peertube/postgres:/var/lib/postgresql/data
+
+  redis:
+    image: redis:4-alpine
+    restart: always
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/peertube/redis:/data
