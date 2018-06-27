@@ -14,11 +14,11 @@ services:
       - PEERTUBE_WEBSERVER_HOSTNAME=peertube.${CHATONS_DOMAIN:-local}
       - PEERTUBE_SMTP_USERNAME=peertube@${CHATONS_DOMAIN:-local}
       - PEERTUBE_SMTP_FROM=peertube@${CHATONS_DOMAIN:-local}
+      - PEERTUBE_ADMIN_EMAIL=peertube@${CHATONS_DOMAIN:-local}
     labels:
       traefik.enable: "true"
-      traefik.backend: "peertube"
       traefik.frontend.rule: "Host: peertube.${CHATONS_DOMAIN:-local}, www.peertube.${CHATONS_DOMAIN:-local}"
-      traefik.docker.network: "traefik"
+      traefik.docker.network: "proxytanet"
     networks:
       - proxytanet
       - default

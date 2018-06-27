@@ -3,6 +3,9 @@
 https://framagit.org/chocobozzz/PeerTube
 
 ## Configure
+
+:warning: You *must* use a working SMTP server :warning:
+
 ```
 export DB_PASSWORD=$(openssl rand -base64 32)
 echo POSTGRES_USER=postgres_user >> .env
@@ -12,7 +15,7 @@ echo PEERTUBE_WEBSERVER_PORT=80 >> .env
 echo PEERTUBE_WEBSERVER_HTTPS=false >> .env
 echo PEERTUBE_DB_HOSTNAME=db >> .env
 echo PEERTUBE_DB_USERNAME=postgres_user >> .env
-echo PEERTUBE_DB_PASSWORLD=$DB_PASSWORD >> .env
+echo PEERTUBE_DB_PASSWORD=$DB_PASSWORD >> .env
 echo PEERTUBE_REDIS_HOSTNAME=redis >> .env
 echo PEERTUBE_SMTP_PASSWORD=null >> .env
 echo PEERTUBE_SMTP_HOSTNAME=null >> .env
