@@ -25,15 +25,6 @@ systemctl start docker
 systemctl enable docker
 ```
 
-## Add the ssh keys of the team
-```
-cd
-git clone https://framagit.org/altermediatic/keys.git
-cd .ssh
-rm -f authorized_keys
-ln -s ../keys/ssh authorized_keys
-```
-
 ## Add this repo
 ```
 cd
