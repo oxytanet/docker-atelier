@@ -6,12 +6,12 @@ networks:
 
 services:
   db:
-    image: mariadb
+    image: postgres:10-alpine
     restart: always
     env_file:
       - .env
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/db:/var/lib/mysql
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/db:/var/lib/postgresql/data
 
   app:
     image: nextcloud:fpm-alpine
