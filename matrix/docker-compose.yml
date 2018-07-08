@@ -12,7 +12,6 @@ services:
       - .env
     environment:
       - SYNAPSE_SERVER_NAME=matrix.${CHATONS_DOMAIN:-local}
-      - SYNAPSE_NO_TLS=true
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: matrix.${CHATONS_DOMAIN:-local}, www.matrix.${CHATONS_DOMAIN:-local}"
@@ -22,6 +21,8 @@ services:
       - default
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/matrix/data:/data
+    ports:
+      - 8448:8448
 
   db:
     image: postgres:10-alpine
