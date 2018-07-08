@@ -1,0 +1,35 @@
+version: "3"
+
+networks:
+  proxytanet:
+    external: true
+
+services:
+  app:
+    image: matrixdotorg/synapse:v0.32.1
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - SYNAPSE_SERVER_NAME=matrix.${CHATONS_DOMAIN:-local}
+      - SYNAPSE_NO_TLS=true
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "Host: matrix.${CHATONS_DOMAIN:-local}, www.matrix.${CHATONS_DOMAIN:-local}"
+      traefik.docker.network: "proxytanet"
+    networks:
+      - proxytanet
+      - default
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/matrix/data:/data
+
+  db:
+    image: postgres:10-alpine
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=synapse
+      - POSTGRES_DB=synapse
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/matrix/postgres:/var/lib/postgresql/data
