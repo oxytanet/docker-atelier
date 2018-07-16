@@ -27,6 +27,9 @@ services:
       - .env
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-cloud}/app:/var/www/html
+    networks:
+      - web
+      - default
 
   web:
     build: .
