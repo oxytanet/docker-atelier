@@ -7,7 +7,7 @@ networks:
 services:
   db:
     image: postgres:10-alpine
-    restart: always
+    restart: unless-stopped
     env_file:
       - .env
     volumes:
@@ -15,7 +15,7 @@ services:
 
   app:
     image: nextcloud:fpm-alpine
-    restart: always
+    restart: unless-stopped
     env_file:
       - .env
     volumes:
@@ -23,7 +23,7 @@ services:
 
   web:
     build: .
-    restart: always
+    restart: unless-stopped
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/app:/var/www/html:ro
     labels:

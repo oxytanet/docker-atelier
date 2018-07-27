@@ -7,7 +7,7 @@ networks:
 services:
   app:
     image: chocobozzz/peertube:production-stretch
-    restart: always
+    restart: unless-stopped
     env_file:
       - .env
     environment:
@@ -25,7 +25,7 @@ services:
 
   db:
     image: postgres:10-alpine
-    restart: always
+    restart: unless-stopped
     env_file:
       - .env
     volumes:
@@ -33,6 +33,6 @@ services:
 
   redis:
     image: redis:4-alpine
-    restart: always
+    restart: unless-stopped
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/peertube/redis:/data

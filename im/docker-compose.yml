@@ -3,7 +3,7 @@ version: '2'
 services:
   generate:
     image: silviof/docker-matrix
-    restart: always
+    restart: unless-stopped
     environment:
       - SERVER_NAME=im.oxyta.net
       - REPORT_STATS=no
@@ -12,7 +12,7 @@ services:
     command: generate
   app:
     image: silviof/docker-matrix
-    restart: always
+    restart: unless-stopped
     ports:
       - "8448:8448"
       - "3478:3478"
