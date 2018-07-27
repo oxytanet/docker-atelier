@@ -26,11 +26,10 @@ Notes:
 
 ### Keycloak side
 
-- login to keycloak using the admin account at `keycloak.YOURDOMAIN`
+- Login to keycloak using the admin account at `keycloak.YOURDOMAIN`
   (the login and password for the admin account can be found in the `.env` file under `KEYCLOAK_USER` and `KEYCLOACK_PASSWORD`)
-- Under `Clients`, create a new client with `Client ID` "nextcloud" and `Root URL` "cloud.YOURDOMAIN"
-- On next screen, under the `Settings` tab, change `Access Type` from `public` to `confidential`, then Save
-- Go the the `Credentials` tab, note the `Secret`
+- If it is not the current realm already, switch the realm to `chatons`
+- Under `Clients`, select the client with `Client ID` "nextcloud", then go the the `Credentials` tab, note the `Secret`
 - OPTIONAL: If there is no registered user yet you can create a test user: go to `Users`, click the `Add User` button, fill the `Username` with "test" and save. Then go to the `Credentials` tab, put the new password, toggle the `Temporary` option to `OFF`, press `Reset Password` and confirm
 
 Keycloak is now ready to be used for Nextcloud.

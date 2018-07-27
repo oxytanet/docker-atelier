@@ -6,7 +6,7 @@ networks:
 
 services:
   keycloak:
-    image: jboss/keycloak
+    build: .
     restart: unless-stopped
     depends_on:
       - db
