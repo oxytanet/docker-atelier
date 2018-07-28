@@ -15,12 +15,16 @@ services:
     environment:
       - DB_ADDR=db
       - DB_VENDOR=postgres
+    expose:
+      - "80"
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-keycloak}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-keycloak}.${CHATONS_DOMAIN:-localhost}"
     networks:
-      - default
-      - web
+      default:
+      web:
+        aliases:
+          - keycloak.${CHATONS_DOMAIN:-localhost}
 
   db:
     image: postgres:10-alpine

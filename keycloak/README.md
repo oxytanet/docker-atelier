@@ -45,8 +45,8 @@ Keycloak is now ready to be used for Nextcloud.
 - Add a new `Custom OpenID Connect` by clicking on the `+` to its side
 - Fill the following:
   - `Title` -> "keycloak"
-  - `Authorize url` -> "http://keycloak.YOURDOMAIN/auth/realms/master/protocol/openid-connect/auth" (don't forget to replace "YOURDOMAIN" by your own domain here!)
-  - `Token url` -> "http://keycloak:8080/auth/realms/master/protocol/openid-connect/token"
+  - `Authorize url` -> "http://keycloak.YOURDOMAIN/auth/realms/chatons/protocol/openid-connect/auth" (don't forget to replace "YOURDOMAIN" by your own domain here!)
+  - `Token url` -> "http://keycloak.YOURDOMAIN/auth/realms/chatons/protocol/openid-connect/token"
   - `Client id` -> "nextcloud"
   - `Client Secret` -> put the secret you noted down during the Keycloak configuration
   - `Scope` -> "openid"
