@@ -32,23 +32,7 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-pad}/app:/opt/etherpad-lite/var
     networks:
       - default
-
-  authproxy:
-    image: evry/oidc-proxy:v1.1.1
-    restart: unless-stopped
-    environment:
-      - OID_DISCOVERY=http://keycloak.${CHATONS_DOMAIN:-localhost}/auth/realms/chatons/.well-known/openid-configuration
-      - OID_CLIENT_ID=etherpad
-      - OID_CLIENT_SECRET=a6e8f604-3184-477c-87d2-84e8b6d6a1a2
-      - OID_SESSION_CHECK_SSI=off
-      - OID_SESSION_NAME=oidc_auth
-      - PROXY_HOST=app
-      - PROXY_PORT=9001
-      - PROXY_PROTOCOL=http
-    expose:
-      - "80"
+      - web
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-pad}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-pad}.${CHATONS_DOMAIN:-localhost}"
-    networks:
-      - web

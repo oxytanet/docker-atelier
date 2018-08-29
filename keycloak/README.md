@@ -18,7 +18,7 @@ echo POSTGRES_PASSWORD=$DB_PASSWORD >> .env
 docker-compose up -d
 ```
 
-## Configuring Keycloak and Nextcloud
+## Configuring Nextcloud for SSO
 
 Notes:
 - When following the instruction below, replace YOURDOMAIN with your actual base domain name, or by "localhost" if you are developping locally.
@@ -38,7 +38,7 @@ Keycloak is now ready to be used for Nextcloud.
 
 (here we assume the base Nextcloud instance has already been configured with an admin account)
 
-- login to your Nextcloud instance with the admin account
+- Login to your Nextcloud instance with the admin account
 - Click on the user profile, then `Apps`
 - Go to `Social & communication` and install the `Social Login` app
 - Go to `Settings` (in your user profile) the `Social Login`
@@ -53,3 +53,58 @@ Keycloak is now ready to be used for Nextcloud.
 - Press `Save`
 
 Your Nextcloud instance is now configured. Log out and log back in using the `Alternative Logins -> keycloak` method on the login page. It should redirect you to a keycloak auth form where you can log in with a registered keycloak user, then back to Nextcloud where you are now logged.
+
+## Configuring Etherpad for SSO
+
+Etherpad should be using the mypads plugin.
+
+By default, mypads will be authenticating with keycloak but etherpad will still be available publicly, see below to restrict this.
+
+Note that the users in Keycloak MUST have a valid email set up (cf https://framagit.org/framasoft/Etherpad/ep_mypads/issues/206).
+
+- Login to mypads' admin console (`http://pad.YOURDOMAIN/mypads/?/admin`) with the credentials in the `.env` file
+- Change the authentication method to use CAS and change the configuration to the following:
+```
+{
+  "serverUrl": "http://keycloak.YOURDOMAIN/auth/realms/chatons/protocol/cas",
+  "serviceUrl": "ethercas",
+  "protocolVersion": 3,
+  "properties": {
+    "login": "login",
+    "email": "email",
+    "firstname": "firstname",
+    "lastname": "lastname"
+  },
+  "defaultLang": "en"
+}
+```
+- Press `Apply`.
+
+### Restricting Anonymous Access
+
+In mypads, as admin, uncheck the box `Anonymous pads`: users will always be redirected to authentication (except if the pad is set as `Public`).
+
+## Generic OIDC Proxy
+
+```
+authproxy:
+  image: evry/oidc-proxy:v1.1.1
+  restart: unless-stopped
+  environment:
+    - OID_DISCOVERY=http://keycloak.${CHATONS_DOMAIN:-localhost}/auth/realms/chatons/.well-known/openid-configuration
+    - OID_CLIENT_ID=XXXXX
+    - OID_CLIENT_SECRET=XXXXX
+    - OID_SESSION_CHECK_SSI=off
+    - OID_SESSION_NAME=oidc_auth
+    - PROXY_HOST=app
+    - PROXY_PORT=XXXX
+    - PROXY_PROTOCOL=http
+  expose:
+    - "80"
+  labels:
+    traefik.enable: "true"
+    traefik.frontend.rule: "Host: XXXX.${CHATONS_DOMAIN:-localhost}, www.XXXX.${CHATONS_DOMAIN:-localhost}"
+  networks:
+    - default
+    - proxytanet
+```
