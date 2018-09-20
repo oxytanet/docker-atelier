@@ -8,6 +8,8 @@ services:
   db:
     image: postgres:10-alpine
     restart: unless-stopped
+    environment:
+      - POSTGRES_DB=workaround  # nextcloud wants to create the db itself
     env_file:
       - .env
     volumes:
@@ -16,6 +18,8 @@ services:
   app:
     image: nextcloud:fpm-alpine
     restart: unless-stopped
+    environment:
+      - POSTGRES_DB=nextcloud
     env_file:
       - .env
     volumes:
