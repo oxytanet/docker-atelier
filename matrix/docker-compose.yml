@@ -1,7 +1,7 @@
 version: "3"
 
 networks:
-  proxytanet:
+  web:
     external: true
 
 services:
@@ -11,13 +11,12 @@ services:
     env_file:
       - .env
     environment:
-      - SYNAPSE_SERVER_NAME=matrix.${CHATONS_DOMAIN:-local}
+      - SYNAPSE_SERVER_NAME=matrix.${CHATONS_DOMAIN:-localhost}
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: matrix.${CHATONS_DOMAIN:-local}, www.matrix.${CHATONS_DOMAIN:-local}"
-      traefik.docker.network: "proxytanet"
+      traefik.frontend.rule: "Host: matrix.${CHATONS_DOMAIN:-localhost}, www.matrix.${CHATONS_DOMAIN:-localhost}"
     networks:
-      - proxytanet
+      - web
       - default
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/matrix/data:/data
@@ -39,10 +38,10 @@ services:
     build:
       context: .
       args:
-        SYNAPSE_SERVER_NAME: matrix.${CHATONS_DOMAIN:-local}
+        SYNAPSE_SERVER_NAME: matrix.${CHATONS_DOMAIN:-localhost}
         RIOT_VERSION: v0.16.6
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: riot.${CHATONS_DOMAIN:-local}, www.riot.${CHATONS_DOMAIN:-local}"
+      traefik.frontend.rule: "Host: riot.${CHATONS_DOMAIN:-localhost}, www.riot.${CHATONS_DOMAIN:-localhost}"
     networks:
-      - proxytanet
+      - web

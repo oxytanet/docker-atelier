@@ -28,13 +28,13 @@ systemctl enable docker
 ## Add this repo
 ```
 cd
-git clone --recursive https://framagit.org/altermediatic/docker-atelier.git
+git clone --recursive https://framagit.org/oxyta.net/docker-atelier.git
 cd docker-atelier
 ```
 
 ## Deploy the proxy
 ```
-docker network create proxytanet
+docker network create web
 ```
 
 And then you can go in the `proxy/` folder and in the environment you want:

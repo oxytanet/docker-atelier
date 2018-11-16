@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  proxytanet:
+  web:
     external: true
 
 services:
@@ -10,7 +10,6 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: "true"
-      traefik.backend: "homepage"
-      traefik.frontend.rule: "Host: ${CHATONS_DOMAIN:-local}, www.${CHATONS_DOMAIN:-local}"
+      traefik.frontend.rule: "Host: ${CHATONS_DOMAIN:-localhost}, www.${CHATONS_DOMAIN:-localhost}"
     networks:
-      - proxytanet
+      - web
