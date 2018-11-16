@@ -10,6 +10,6 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_DOMAIN:-local}, www.${CHATONS_DOMAIN:-local}"
+      traefik.frontend.rule: "Host: ${CHATONS_DOMAIN:-localhost}, www.${CHATONS_DOMAIN:-localhost}"
     networks:
       - web

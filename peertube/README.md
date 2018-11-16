@@ -21,9 +21,9 @@ echo PEERTUBE_SMTP_PASSWORD=null >> .env
 echo PEERTUBE_SMTP_HOSTNAME=null >> .env
 echo PEERTUBE_SMTP_PORT=465 >> .env
 echo PEERTUBE_SMTP_TLS=true >> .env
-echo PEERTUBE_SMTP_USERNAME=peertube@${CHATONS_DOMAIN:-local} >> .env
-echo PEERTUBE_SMTP_FROM=peertube@${CHATONS_DOMAIN:-local} >> .env
-echo PEERTUBE_ADMIN_EMAIL=peertube@${CHATONS_DOMAIN:-local} >> .env
+echo PEERTUBE_SMTP_USERNAME=peertube@${CHATONS_DOMAIN:-localhost} >> .env
+echo PEERTUBE_SMTP_FROM=peertube@${CHATONS_DOMAIN:-localhost} >> .env
+echo PEERTUBE_ADMIN_EMAIL=peertube@${CHATONS_DOMAIN:-localhost} >> .env
 ```
 
 ## Deploy

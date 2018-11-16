@@ -4,7 +4,8 @@ https://matrix.org & https://riot.im
 
 ## DNS
 
-For this project, you need to setup both `matrix` & `riot` subdomains of `$CHATONS_DOMAIN` (which defaults to `local`)
+For this project, you need to setup both `matrix` & `riot` subdomains of `$CHATONS_DOMAIN` (which defaults to
+`localhost`)
 
 ## Configure
 

@@ -11,10 +11,10 @@ services:
     env_file:
       - .env
     environment:
-      - PEERTUBE_WEBSERVER_HOSTNAME=peertube.${CHATONS_DOMAIN:-local}
+      - PEERTUBE_WEBSERVER_HOSTNAME=peertube.${CHATONS_DOMAIN:-localhost}
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: peertube.${CHATONS_DOMAIN:-local}, www.peertube.${CHATONS_DOMAIN:-local}"
+      traefik.frontend.rule: "Host: peertube.${CHATONS_DOMAIN:-localhost}, www.peertube.${CHATONS_DOMAIN:-localhost}"
     networks:
       - web
       - default
