@@ -28,7 +28,7 @@ systemctl enable docker
 ## Add this repo
 ```
 cd
-git clone --recursive https://framagit.org/altermediatic/docker-atelier.git
+git clone --recursive https://framagit.org/oxyta.net/docker-atelier.git
 cd docker-atelier
 ```
 
