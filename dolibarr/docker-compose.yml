@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  proxytanet:
+  web:
     external: true
 
 services:
@@ -27,8 +27,7 @@ services:
       dockerfile: Dockerfile.nginx
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: dolibarr.${CHATONS_DOMAIN:-local}, www.dolibarr.${CHATONS_DOMAIN:-local}"
-      traefik.docker.network: "proxytanet"
+      traefik.frontend.rule: "Host: dolibarr.${CHATONS_DOMAIN:-localhost}, www.dolibarr.${CHATONS_DOMAIN:-localhost}"
     networks:
-      - proxytanet
+      - web
       - default
