@@ -1,7 +1,7 @@
 version: "3"
 
 networks:
-  proxytanet:
+  web:
     external: true
 
 services:
@@ -15,9 +15,8 @@ services:
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: matrix.${CHATONS_DOMAIN:-local}, www.matrix.${CHATONS_DOMAIN:-local}"
-      traefik.docker.network: "proxytanet"
     networks:
-      - proxytanet
+      - web
       - default
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/matrix/data:/data
@@ -45,4 +44,4 @@ services:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: riot.${CHATONS_DOMAIN:-local}, www.riot.${CHATONS_DOMAIN:-local}"
     networks:
-      - proxytanet
+      - web

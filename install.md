@@ -34,7 +34,7 @@ cd docker-atelier
 
 ## Deploy the proxy
 ```
-docker network create proxytanet
+docker network create web
 ```
 
 And then you can go in the `proxy/` folder and in the environment you want:

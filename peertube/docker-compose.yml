@@ -1,7 +1,7 @@
 version: "3"
 
 networks:
-  proxytanet:
+  web:
     external: true
 
 services:
@@ -15,9 +15,8 @@ services:
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: peertube.${CHATONS_DOMAIN:-local}, www.peertube.${CHATONS_DOMAIN:-local}"
-      traefik.docker.network: "proxytanet"
     networks:
-      - proxytanet
+      - web
       - default
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/peertube/data:/data
