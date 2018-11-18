@@ -1,0 +1,33 @@
+version: '3'
+
+networks:
+  web:
+    external: true
+
+services:
+  postgres:
+    image: postgres:10-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/sql:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.fpm
+    restart: unless-stopped
+    env_file:
+      - .env
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "Host: dolibarr.${CHATONS_DOMAIN:-localhost}, www.dolibarr.${CHATONS_DOMAIN:-localhost}"
+    networks:
+      - web
+      - default
