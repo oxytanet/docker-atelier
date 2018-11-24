@@ -1,0 +1,48 @@
+version: '3'
+
+networks:
+  web:
+    external: true
+
+services:
+  wallabag:
+    image: wallabag/wallabag
+    restart: unless-stopped
+    environment:
+      - SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
+      - SYMFONY__ENV__DATABASE_HOST=db
+      - SYMFONY__ENV__DATABASE_PORT=3306
+      - SYMFONY__ENV__DATABASE_CHARSET=utf8mb4
+      - SYMFONY__ENV__DOMAIN_NAME=http://bag.${CHATONS_DOMAIN:-localhost}
+    env_file:
+      - .env
+    volumes:
+      - images:/var/www/wallabag/web/assets/images
+      - data:/var/www/wallabag/data
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "Host: bag.${CHATONS_DOMAIN:-localhost}, www.bag.${CHATONS_DOMAIN:-localhost}"
+    networks:
+      - default
+      - web
+
+  db:
+    image: mariadb
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - default
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    networks:
+      - default
+
+volumes:
+  images:
+  data:
+  db:
