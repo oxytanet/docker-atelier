@@ -9,10 +9,10 @@ services:
     image: wallabag/wallabag
     restart: unless-stopped
     environment:
-      - SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
+      - SYMFONY__ENV__DATABASE_DRIVER=pdo_pgsql
+      - SYMFONY__ENV__DATABASE_DRIVER_CLASS=Wallabag\CoreBundle\Doctrine\DBAL\Driver\CustomPostgreSQLDriver
       - SYMFONY__ENV__DATABASE_HOST=db
-      - SYMFONY__ENV__DATABASE_PORT=3306
-      - SYMFONY__ENV__DATABASE_CHARSET=utf8mb4
+      - SYMFONY__ENV__DATABASE_PORT=5432
       - SYMFONY__ENV__DOMAIN_NAME=http://bag.${CHATONS_DOMAIN:-localhost}
     env_file:
       - .env
@@ -27,22 +27,17 @@ services:
       - web
 
   db:
-    image: mariadb
+    image: postgres:10-alpine
     restart: unless-stopped
+    environment:
+      - POSTGRES_DB=workaround # DB created by wallabag
     env_file:
       - .env
     volumes:
-      - db:/var/lib/mysql
-    networks:
-      - default
-
-  redis:
-    image: redis:alpine
-    restart: unless-stopped
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/wallabag/db:/var/lib/postgresql/data
     networks:
       - default
 
 volumes:
   images:
   data:
-  db:
