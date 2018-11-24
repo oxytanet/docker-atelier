@@ -17,8 +17,8 @@ services:
     env_file:
       - .env
     volumes:
-      - images:/var/www/wallabag/web/assets/images
-      - data:/var/www/wallabag/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/bag/images:/var/www/wallabag/web/assets/images
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/bag/data:/var/www/wallabag/data
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: bag.${CHATONS_DOMAIN:-localhost}, www.bag.${CHATONS_DOMAIN:-localhost}"
@@ -34,10 +34,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/wallabag/db:/var/lib/postgresql/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/bag/db:/var/lib/postgresql/data
     networks:
       - default
 
-volumes:
-  images:
-  data:
