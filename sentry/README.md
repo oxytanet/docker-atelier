@@ -1,5 +1,8 @@
 # Sentry on proxyta.net
 
+Sentry is an error tracking software:
+https://sentry.io
+
 ## Reverse Proxy
 
 This config needs træfik, eg. [proxyta.net](https://framagit.org/oxyta.net/proxyta.net)
