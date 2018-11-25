@@ -1,8 +1,10 @@
 # Static site
 
 ## Configure
+To serve a static site for `changeme.domain.tld`:
 ```
 export CHATONS_STATIC_SITE=changeme
+export CHATONS_DOMAIN=domain.tld
 ```
 
 ## Deploy
