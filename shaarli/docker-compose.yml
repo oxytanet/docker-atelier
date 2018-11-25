@@ -13,11 +13,10 @@ services:
       - data:/var/www/shaarli/data
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: shaarli.${CHATONS_DOMAIN:-localhost}, www.shaarli.${CHATONS_DOMAIN:-localhost}"
+      traefik.frontend.rule: "Host: links.${CHATONS_DOMAIN:-localhost}, www.links.${CHATONS_DOMAIN:-localhost}"
     networks:
       - web
       - default
-
 
 volumes:
   cache:
