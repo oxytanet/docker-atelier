@@ -2,13 +2,13 @@
 
 ## Reverse Proxy
 
-This config needs a reverse proxy, like [proxyta.net](https://framagit.org/nim65s/proxyta.net)
+This config needs træfik, eg. [proxyta.net](https://framagit.org/oxyta.net/proxyta.net)
 
 ## Configure
 
 ```bash
 echo SENTRY_SECRET_KEY=$(openssl rand -base64 32) >> .env
-echo DOMAIN_NAME=$YOUR_FQDN> >> .env
+echo CHATONS_DOMAIN=$YOUR_FQDN> >> .env
 echo SENTRY_EMAIL_HOST= >> .env
 echo SENTRY_EMAIL_PORT= >> .env
 echo SENTRY_EMAIL_USER= >> .env
