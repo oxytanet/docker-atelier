@@ -1,5 +1,12 @@
 # Dolibarr
 
+## :warning: This is a WIP
+
+pour l’instant, la conf est supprimée à chaque update :/
+il faut binder les volumes entre fpm, nginx & l’hôte
+
+## Usage
+
 ```
 echo POSTGRES_PASSWORD=$(openssl rand -base64 32) >> .env
 docker-compose up -d --build
