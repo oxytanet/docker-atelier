@@ -4,7 +4,7 @@ https://framagit.org/chocobozzz/PeerTube
 
 ## Configure
 
-:warning: You *must* use a working SMTP server :warning:
+### :warning: You *must* use a working SMTP server :warning:
 
 ```
 export DB_PASSWORD=$(openssl rand -base64 32)
@@ -24,6 +24,12 @@ echo PEERTUBE_SMTP_TLS=true >> .env
 echo PEERTUBE_SMTP_USERNAME=peertube@${CHATONS_DOMAIN:-localhost} >> .env
 echo PEERTUBE_SMTP_FROM=peertube@${CHATONS_DOMAIN:-localhost} >> .env
 echo PEERTUBE_ADMIN_EMAIL=peertube@${CHATONS_DOMAIN:-localhost} >> .env
+```
+
+If you want to use HTTPS, you will have to add:
+```
+echo PEERTUBE_WEBSERVER_HTTPS=true >> .env
+echo PEERTUBE_WEBSERVER_PORT=443 >> .env
 ```
 
 ## Deploy
