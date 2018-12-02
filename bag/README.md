@@ -4,11 +4,11 @@ https://wallabag.org
 
 ## Configure
 ```
-echo POSTGRES_PASSWORD=$(openssl rand -base64 32) >> .env
+export DB_PASSWORD=$(openssl rand -base64 32)
+echo POSTGRES_PASSWORD=$DB_PASSWORD >> .env
 echo POSTGRES_USER=wallabag >> .env
-echo SYMFONY__ENV__DATABASE_NAME=wallabag >> .env
 echo SYMFONY__ENV__DATABASE_USER=wallabag >> .env
-echo SYMFONY__ENV__DATABASE_PASSWORD=$(openssl rand -base64 32) >> .env
+echo SYMFONY__ENV__DATABASE_PASSWORD=$DB_PASSWORD >> .env
 echo SYMFONY__ENV__MAILER_HOST=changeme >> .env
 echo SYMFONY__ENV__MAILER_USER=changeme >> .env
 echo SYMFONY__ENV__FROM_EMAIL=changeme >> .env
