@@ -9,7 +9,6 @@ services:
     image: shaarli/shaarli:latest
     restart: unless-stopped
     volumes:
-      - cache:/var/www/shaarli/cache
       - data:/var/www/shaarli/data
     labels:
       traefik.enable: "true"
@@ -19,5 +18,4 @@ services:
       - default
 
 volumes:
-  cache:
   data:
