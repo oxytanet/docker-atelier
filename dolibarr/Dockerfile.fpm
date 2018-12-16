@@ -13,4 +13,3 @@ RUN apk --no-cache add postgresql-dev libpng-dev \
  && docker-php-ext-install gd pgsql zip
 
 COPY --from=0 htdocs /var/www/html
-RUN touch conf/conf.php && mkdir documents && chown www-data documents conf/conf.php

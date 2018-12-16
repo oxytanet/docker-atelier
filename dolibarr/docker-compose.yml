@@ -20,6 +20,9 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/conf:/var/www/html/conf
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/documents:/var/www/html/documents
 
   web:
     build:
@@ -31,3 +34,6 @@ services:
     networks:
       - web
       - default
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/conf:/var/www/html/conf
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/documents:/var/www/html/documents
