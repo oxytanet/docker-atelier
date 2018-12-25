@@ -1,0 +1,41 @@
+version: '3'
+
+networks:
+  web:
+    external: true
+
+services:
+  wallabag:
+    image: wallabag/wallabag
+    restart: unless-stopped
+    environment:
+      - SYMFONY__ENV__DATABASE_DRIVER=pdo_pgsql
+      - SYMFONY__ENV__DATABASE_DRIVER_CLASS=Wallabag\CoreBundle\Doctrine\DBAL\Driver\CustomPostgreSQLDriver
+      - SYMFONY__ENV__DATABASE_HOST=db
+      - SYMFONY__ENV__DATABASE_PORT=5432
+      - SYMFONY__ENV__DATABASE_NAME=wallabag
+      - SYMFONY__ENV__DOMAIN_NAME=http://bag.${CHATONS_DOMAIN:-localhost}
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/bag/images:/var/www/wallabag/web/assets/images
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/bag/data:/var/www/wallabag/data
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "Host: bag.${CHATONS_DOMAIN:-localhost}, www.bag.${CHATONS_DOMAIN:-localhost}"
+    networks:
+      - default
+      - web
+
+  db:
+    image: postgres:10-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=workaround # DB created by wallabag
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/bag/db:/var/lib/postgresql/data
+    networks:
+      - default
+
