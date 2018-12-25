@@ -40,3 +40,6 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/bag/db:/var/lib/postgresql/data
     networks:
       - default
+
+  redis:
+    image: redis:alpine
