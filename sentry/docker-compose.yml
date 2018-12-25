@@ -8,7 +8,7 @@ services:
     image: postgres:11-alpine
     restart: unless-stopped
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/nextcloud/db:/var/lib/postgresql/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/sentry/db:/var/lib/postgresql/data
   sentry:
     image: sentry
     restart: unless-stopped
