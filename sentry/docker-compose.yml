@@ -4,6 +4,9 @@ services:
   redis:
     image: redis:alpine
     restart: unless-stopped
+  memcached:
+    image: memcached:alpine
+    restart: unless-stopped
   postgres:
     image: postgres:11-alpine
     restart: unless-stopped
@@ -24,6 +27,8 @@ services:
       - SENTRY_REDIS_HOST=redis
       - SENTRY_POSTGRES_HOST=postgres
       - SENTRY_SERVER_EMAIL=sentry@${CHATONS_DOMAIN:-localhost}
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/sentry/data:/var/lib/sentry/file
   cron:
     command: "sentry run cron"
     image: sentry
