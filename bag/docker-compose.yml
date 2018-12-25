@@ -14,6 +14,7 @@ services:
       - SYMFONY__ENV__DATABASE_HOST=db
       - SYMFONY__ENV__DATABASE_PORT=5432
       - SYMFONY__ENV__DATABASE_NAME=wallabag
+      - SYMFONY__ENV__DATABASE_USER=wallabag
       - SYMFONY__ENV__DOMAIN_NAME=http://bag.${CHATONS_DOMAIN:-localhost}
     env_file:
       - .env
@@ -32,10 +33,10 @@ services:
     restart: unless-stopped
     environment:
       - POSTGRES_DB=workaround # DB created by wallabag
+      - POSTGRES_USER=wallabag
     env_file:
       - .env
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/bag/db:/var/lib/postgresql/data
     networks:
       - default
-
