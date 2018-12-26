@@ -1,0 +1,40 @@
+version: '3'
+
+networks:
+  web:
+    external: true
+
+volumes:
+  vol:
+
+services:
+  postgres:
+    image: postgres:11-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/limesurvey/sql:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.fpm
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - vol:/var/www/html
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "Host: limesurvey.${CHATONS_DOMAIN:-localhost}, www.limesurvey.${CHATONS_DOMAIN:-localhost}"
+    networks:
+      - web
+      - default
+    volumes:
+      - vol:/var/www/html
