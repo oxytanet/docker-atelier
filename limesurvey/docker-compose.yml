@@ -5,7 +5,7 @@ networks:
     external: true
 
 volumes:
-  vol:
+  data:
 
 services:
   postgres:
@@ -24,7 +24,8 @@ services:
     env_file:
       - .env
     volumes:
-      - vol:/var/www/html
+      - data:/var/www/html
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/limesurvey/upload:/var/www/html/upload
 
   web:
     build:
@@ -39,4 +40,5 @@ services:
       - web
       - default
     volumes:
-      - vol:/var/www/html:ro
+      - data:/var/www/html:ro
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/limesurvey/upload:/var/www/html/upload:ro

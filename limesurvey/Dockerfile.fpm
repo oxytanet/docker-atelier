@@ -12,10 +12,11 @@ RUN wget -q $URL -O $FILE \
  && tar xf $FILE --strip-components=1 \
  && rm $FILE
 
-RUN chown -R www-data tmp upload application/config
+RUN chown -R www-data tmp application/config
 ADD config.php application/config/
 
-VOLUME /var/www/html
+VOLUME /var/www/html /var/www/html/upload
 
 CMD sed -i "s|POSTGRES_PASSWORD|$POSTGRES_PASSWORD|" application/config/config.php \
+ && chown -R www-data upload \
  && php-fpm
