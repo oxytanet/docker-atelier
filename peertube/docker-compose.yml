@@ -12,6 +12,11 @@ services:
       - .env
     environment:
       - PEERTUBE_WEBSERVER_HOSTNAME=${CHATONS_SERVICE:-peertube}.${CHATONS_DOMAIN:-localhost}
+      - PEERTUBE_WEBSERVER_PORT=80
+      - PEERTUBE_WEBSERVER_HTTPS=false
+      - PEERTUBE_DB_HOSTNAME=db
+      - PEERTUBE_DB_USERNAME=postgres_user
+      - PEERTUBE_REDIS_HOSTNAME=redis
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-peertube}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-peertube}.${CHATONS_DOMAIN:-localhost}"
@@ -25,6 +30,9 @@ services:
   db:
     image: postgres:10-alpine
     restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_DB=peertube
     env_file:
       - .env
     volumes:

@@ -8,6 +8,8 @@ services:
   db:
     image: postgres:10-alpine
     restart: unless-stopped
+    environment:
+      - POSTGRES_USER=etherpad
     env_file:
       - .env
     volumes:
@@ -16,6 +18,11 @@ services:
   app:
     build: .
     restart: unless-stopped
+    environment:
+      - POSTGRES_DB_HOST=db
+      - ETHERPAD_DB_TYPE=postgres
+      - ETHERPAD_DB_USER=etherpad
+      - ETHERPAD_DB_PORT=5432
     env_file:
       - .env
     labels:

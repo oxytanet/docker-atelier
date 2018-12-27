@@ -1,4 +1,4 @@
-# Sentry on proxyta.net
+# Sentry
 
 Sentry is an error tracking software:
 https://sentry.io
@@ -7,11 +7,11 @@ https://sentry.io
 
 ```bash
 echo SENTRY_SECRET_KEY=$(openssl rand -base64 32) >> .env
-echo SENTRY_EMAIL_HOST= >> .env
-echo SENTRY_EMAIL_PORT= >> .env
-echo SENTRY_EMAIL_USER= >> .env
-echo SENTRY_EMAIL_PASSWORD= >> .env
-echo SENTRY_EMAIL_USE_TLS= >> .env
+echo SENTRY_EMAIL_HOST=changeme >> .env
+echo SENTRY_EMAIL_PORT=changeme >> .env
+echo SENTRY_EMAIL_USER=changeme >> .env
+echo SENTRY_EMAIL_PASSWORD=changeme >> .env
+echo SENTRY_EMAIL_USE_TLS=changeme >> .env
 ```
 
 ## Deploy
