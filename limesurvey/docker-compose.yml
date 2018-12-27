@@ -14,7 +14,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/limesurvey/sql:/var/lib/postgresql/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-limesurvey}/sql:/var/lib/postgresql/data
 
   app:
     build:
@@ -25,7 +25,7 @@ services:
       - .env
     volumes:
       - data:/var/www/html
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/limesurvey/upload:/var/www/html/upload
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-limesurvey}/upload:/var/www/html/upload
 
   web:
     build:
@@ -35,10 +35,10 @@ services:
       - app
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: limesurvey.${CHATONS_DOMAIN:-localhost}, www.limesurvey.${CHATONS_DOMAIN:-localhost}"
+      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-limesurvey}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-limesurvey}.${CHATONS_DOMAIN:-localhost}"
     networks:
       - web
       - default
     volumes:
       - data:/var/www/html:ro
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/limesurvey/upload:/var/www/html/upload:ro
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-limesurvey}/upload:/var/www/html/upload:ro

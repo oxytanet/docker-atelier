@@ -11,7 +11,7 @@ services:
     image: postgres:11-alpine
     restart: unless-stopped
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/sentry/db:/var/lib/postgresql/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-sentry}/db:/var/lib/postgresql/data
   sentry:
     image: sentry
     restart: unless-stopped
@@ -22,13 +22,13 @@ services:
       - default
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: sentry.${CHATONS_DOMAIN:-localhost}, www.sentry.${CHATONS_DOMAIN:-localhost}"
+      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-sentry}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-sentry}.${CHATONS_DOMAIN:-localhost}"
     environment:
       - SENTRY_REDIS_HOST=redis
       - SENTRY_POSTGRES_HOST=postgres
-      - SENTRY_SERVER_EMAIL=sentry@${CHATONS_DOMAIN:-localhost}
+      - SENTRY_SERVER_EMAIL=${CHATONS_SERVICE:-sentry}@${CHATONS_DOMAIN:-localhost}
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/sentry/data:/var/lib/sentry/file
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-sentry}/data:/var/lib/sentry/file
   cron:
     command: "sentry run cron"
     image: sentry

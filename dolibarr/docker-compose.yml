@@ -14,7 +14,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/sql:/var/lib/postgresql/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-dolibarr}/sql:/var/lib/postgresql/data
 
   app:
     build:
@@ -25,8 +25,8 @@ services:
       - .env
     volumes:
       - data:/var/www/html
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/conf:/var/www/html/conf
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/documents:/var/www/html/documents
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-dolibarr}/conf:/var/www/html/conf
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-dolibarr}/documents:/var/www/html/documents
 
   web:
     build:
@@ -36,11 +36,11 @@ services:
       - app
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: dolibarr.${CHATONS_DOMAIN:-localhost}, www.dolibarr.${CHATONS_DOMAIN:-localhost}"
+      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-dolibarr}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-dolibarr}.${CHATONS_DOMAIN:-localhost}"
     networks:
       - web
       - default
     volumes:
       - data:/var/www/html:ro
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/conf:/var/www/html/conf:ro
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/documents:/var/www/html/documents:ro
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-dolibarr}/conf:/var/www/html/conf:ro
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-dolibarr}/documents:/var/www/html/documents:ro

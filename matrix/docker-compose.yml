@@ -11,15 +11,15 @@ services:
     env_file:
       - .env
     environment:
-      - SYNAPSE_SERVER_NAME=matrix.${CHATONS_DOMAIN:-localhost}
+      - SYNAPSE_SERVER_NAME=${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: matrix.${CHATONS_DOMAIN:-localhost}, www.matrix.${CHATONS_DOMAIN:-localhost}"
+      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}"
     networks:
       - web
       - default
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/matrix/data:/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data:/data
     ports:
       - 8448:8448
 
@@ -32,13 +32,13 @@ services:
       - POSTGRES_USER=synapse
       - POSTGRES_DB=synapse
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/matrix/postgres:/var/lib/postgresql/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/postgres:/var/lib/postgresql/data
 
   riot:
     build:
       context: .
       args:
-        SYNAPSE_SERVER_NAME: matrix.${CHATONS_DOMAIN:-localhost}
+        SYNAPSE_SERVER_NAME: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
         RIOT_VERSION: v0.17.5
     labels:
       traefik.enable: "true"

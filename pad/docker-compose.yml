@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/etherpad/db:/var/lib/postgresql/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-pad}/db:/var/lib/postgresql/data
 
   app:
     build: .
@@ -20,9 +20,9 @@ services:
       - .env
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: pad.${CHATONS_DOMAIN:-localhost}, www.pad.${CHATONS_DOMAIN:-localhost}"
+      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-pad}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-pad}.${CHATONS_DOMAIN:-localhost}"
     networks:
       - default
       - web
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/etherpad/app:/opt/etherpad-lite/var
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-pad}/app:/opt/etherpad-lite/var
