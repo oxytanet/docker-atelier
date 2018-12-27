@@ -10,6 +10,12 @@ echo ETHERPAD_DB_PASSWORD=$DB_PASSWORD >> .env
 echo ETHERPAD_TITLE=Bloc Note >> .env
 ```
 
+## (Optionnal) Add a theme
+
+```
+echo THEME_IMAGE=oxytanet/front-pad >> .env
+```
+
 ## Deploy
 ```
 docker-compose up -d

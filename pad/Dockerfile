@@ -1,14 +1,9 @@
-FROM node:9-alpine as build
+ARG THEME_IMAGE
 
-RUN apk add --no-cache curl
-RUN mkdir /front-pad
-RUN curl -sSL https://framagit.org/oxyta.net/front-pad/repository/master/archive.tar.gz | tar --directory /front-pad -xz --strip 1
-WORKDIR /front-pad
-RUN npm set progress=false && npm i && npm run css
-
+FROM ${THEME_IMAGE} AS build
 FROM tvelocity/etherpad-lite
 
 WORKDIR /opt/etherpad-lite
 
-COPY --from=build /front-pad/index.html src/templates/
-COPY --from=build /front-pad/static/custom/index.css src/static/custom/
+COPY --from=build /opt/etherpad-lite/src/templates/index.html src/templates/
+COPY --from=build /opt/etherpad-lite/src/static/custom/index.css src/static/custom/
