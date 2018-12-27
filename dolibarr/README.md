@@ -10,7 +10,8 @@ docker-compose exec app chown www-data documents conf/conf.php
 ```
 
 Go to your webbrowser to finish installation:
-- DB name / DB host / DB user: `postgres`
+- DB host: `db`
+- DB name / DB user: `postgres`
 - DB password: look inside .env
 - DB port: empty
 

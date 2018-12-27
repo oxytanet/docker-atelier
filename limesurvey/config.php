@@ -24,7 +24,7 @@
 return array(
 	'components' => array(
 		'db' => array(
-			'connectionString' => 'pgsql:host=postgres;port=5432;user=postgres;password=POSTGRES_PASSWORD;dbname=postgres;',
+			'connectionString' => 'pgsql:host=db;port=5432;user=postgres;password=POSTGRES_PASSWORD;dbname=postgres;',
 			'emulatePrepare' => true,
 			'username' => 'postgres',
 			'password' => 'POSTGRES_PASSWORD',

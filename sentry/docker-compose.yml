@@ -7,7 +7,7 @@ services:
   memcached:
     image: memcached:alpine
     restart: unless-stopped
-  postgres:
+  db:
     image: postgres:11-alpine
     restart: unless-stopped
     volumes:
@@ -25,7 +25,7 @@ services:
       traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-sentry}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-sentry}.${CHATONS_DOMAIN:-localhost}"
     environment:
       - SENTRY_REDIS_HOST=redis
-      - SENTRY_POSTGRES_HOST=postgres
+      - SENTRY_POSTGRES_HOST=db
       - SENTRY_SERVER_EMAIL=${CHATONS_SERVICE:-sentry}@${CHATONS_DOMAIN:-localhost}
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-sentry}/data:/var/lib/sentry/file
@@ -37,7 +37,7 @@ services:
       - .env
     environment:
       - SENTRY_REDIS_HOST=redis
-      - SENTRY_POSTGRES_HOST=postgres
+      - SENTRY_POSTGRES_HOST=db
   worker:
     command: "sentry run worker"
     image: sentry
@@ -46,7 +46,7 @@ services:
       - .env
     environment:
       - SENTRY_REDIS_HOST=redis
-      - SENTRY_POSTGRES_HOST=postgres
+      - SENTRY_POSTGRES_HOST=db
 
 networks:
   web:

@@ -8,7 +8,7 @@ volumes:
   data:
 
 services:
-  postgres:
+  db:
     image: postgres:11-alpine
     restart: unless-stopped
     env_file:
