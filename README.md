@@ -41,3 +41,7 @@ Pour configurer et déployer un CHATONS, suivez [install.md](install.md) en tant
 # Procédure d’installation
 
 [install instructions](install.md)
+
+# Contribuer
+
+Les standards pour les services sont [ici](docs/standards.md)
