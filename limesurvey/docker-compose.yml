@@ -39,4 +39,4 @@ services:
       - web
       - default
     volumes:
-      - vol:/var/www/html
+      - vol:/var/www/html:ro
