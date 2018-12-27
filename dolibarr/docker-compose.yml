@@ -4,6 +4,9 @@ networks:
   web:
     external: true
 
+volumes:
+  data:
+
 services:
   postgres:
     image: postgres:10-alpine
@@ -21,6 +24,7 @@ services:
     env_file:
       - .env
     volumes:
+      - data:/var/www/html
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/conf:/var/www/html/conf
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/documents:/var/www/html/documents
 
@@ -28,6 +32,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.nginx
+    depends_on:
+      - app
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: dolibarr.${CHATONS_DOMAIN:-localhost}, www.dolibarr.${CHATONS_DOMAIN:-localhost}"
@@ -35,5 +41,6 @@ services:
       - web
       - default
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/conf:/var/www/html/conf
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/documents:/var/www/html/documents
+      - data:/var/www/html:ro
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/conf:/var/www/html/conf:ro
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/dolibarr/documents:/var/www/html/documents:ro

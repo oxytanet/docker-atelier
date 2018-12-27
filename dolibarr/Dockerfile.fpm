@@ -1,15 +1,13 @@
-FROM alpine
+FROM php:fpm-alpine
 
-ENV DOLI_VERSION 8.0.3
+RUN apk --no-cache add postgresql-dev libpng-dev libzip-dev \
+ && docker-php-ext-install gd pgsql zip
+
+ENV DOLI_VERSION 8.0.4
 
 RUN wget -q https://github.com/Dolibarr/dolibarr/archive/${DOLI_VERSION}.tar.gz \
  && tar xf ${DOLI_VERSION}.tar.gz \
- && mv dolibarr-${DOLI_VERSION}/htdocs . \
+ && mv dolibarr-${DOLI_VERSION}/htdocs/* /var/www/html \
  && rm -rf dolibarr-${DOLI_VERSION} ${DOLI_VERSION}.tar.gz
 
-FROM php:fpm-alpine
-
-RUN apk --no-cache add postgresql-dev libpng-dev \
- && docker-php-ext-install gd pgsql zip
-
-COPY --from=0 htdocs /var/www/html
+VOLUME /var/www/html /var/www/html/conf /var/www/html/documents
