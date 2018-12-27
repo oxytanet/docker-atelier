@@ -32,11 +32,8 @@ Pour pouvoir installer un CHATONS en production, vous devez disposer :
 
 Pour configurer et déployer un CHATONS, suivez [install.md](install.md) en tant que root.
 
-## English
-
-## Lisez-moi
-
-[Pad](https://mypads.framapad.org/mypads/?/mypads/group/altermediatic-toulouse-deatm79d/pad/view/docker-atelier-acqwh7km)
+Si vous utilisez nos recettes, vous pouvez le dire [là](docs/utilisateurs.md), afin qu’on ne risque pas de ne pas vous
+prévenir en cas de changement important.
 
 # Procédure d’installation
 
@@ -44,4 +41,8 @@ Pour configurer et déployer un CHATONS, suivez [install.md](install.md) en tant
 
 # Contribuer
 
-Les standards pour les services sont [ici](docs/standards.md)
+- Les standards pour les services sont [ici](docs/standards.md).
+
+## Comptes Rendus de nos réunions
+
+[Pad](https://mypads.framapad.org/mypads/?/mypads/group/altermediatic-toulouse-deatm79d/pad/view/docker-atelier-acqwh7km)
