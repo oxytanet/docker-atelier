@@ -8,6 +8,8 @@ services:
   app:
     build: .
     restart: unless-stopped
+    env_file:
+      - .env
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: ${CHATONS_DOMAIN:-localhost}, www.${CHATONS_DOMAIN:-localhost}"
