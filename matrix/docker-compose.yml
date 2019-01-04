@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     environment:
-      - SYNAPSE_SERVER_NAME=${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
+      - SYNAPSE_SERVER_NAME=${SYNAPSE_SERVER_NAME:-${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}}
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}"
@@ -38,10 +38,10 @@ services:
     build:
       context: .
       args:
-        SYNAPSE_SERVER_NAME: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
+      - SYNAPSE_SERVER_NAME=${SYNAPSE_SERVER_NAME:-${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}}
         RIOT_VERSION: v0.17.8
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: riot.${CHATONS_DOMAIN:-localhost}, www.riot.${CHATONS_DOMAIN:-localhost}"
+      traefik.frontend.rule: "Host: ${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}, www.${RIOTSUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}"
     networks:
       - web
