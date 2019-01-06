@@ -7,5 +7,5 @@ ARG RIOT_VERSION
 RUN curl -sSL https://github.com/vector-im/riot-web/releases/download/$RIOT_VERSION/riot-$RIOT_VERSION.tar.gz \
   | tar -xz --strip-components=1
 
-ARG SYNAPSE_SERVER_NAME
-RUN sed "/default_hs_url/s=https://matrix.org=//$SYNAPSE_SERVER_NAME=" config.sample.json > config.json
+ARG SYNAPSE_FULL_URL
+RUN sed "/default_hs_url/s=https://matrix.org=//$SYNAPSE_FULL_URL=" config.sample.json > config.json

@@ -38,7 +38,7 @@ services:
     build:
       context: .
       args:
-        SYNAPSE_SERVER_NAME: ${SYNAPSE_SERVER_NAME}
+        SYNAPSE_FULL_URL: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
         RIOT_VERSION: v0.17.8
     labels:
       traefik.enable: "true"
