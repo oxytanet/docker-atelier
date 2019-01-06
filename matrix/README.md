@@ -20,6 +20,9 @@ echo SYNAPSE_SMTP_PASSWORD=changeme >> .env
 echo SYNAPSE_SERVER_NAME=matrix.localhost >> .env
 ```
 
+If you setup your DNS with `_matrix._tcp           3600 IN  SRV    10 0 8448 $CHATONS_SERVICE.$CHATONS_DOMAIN.`, you
+can use `$CHATONS_DOMAIN` as `$SYNAPSE_SERVER_NAME`. Otherwise, you have to use `$CHATONS_SERVICE.$CHATONS_DOMAIN`.
+
 ## Deploy
 ```
 docker-compose up -d
