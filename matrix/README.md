@@ -17,6 +17,7 @@ echo SYNAPSE_SMTP_PORT=465 >> .env
 echo SYNAPSE_SMTP_HOST=mail.gandi.net >> .env
 echo SYNAPSE_SMTP_USER=dev@oxyta.net >> .env
 echo SYNAPSE_SMTP_PASSWORD=changeme >> .env
+echo SYNAPSE_SERVER_NAME=matrix.localhost >> .env
 ```
 
 ## Deploy
