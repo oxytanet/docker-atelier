@@ -3,7 +3,7 @@ FROM php:fpm-alpine
 RUN apk --no-cache add postgresql-dev libpng-dev libzip-dev \
  && docker-php-ext-install gd pgsql zip
 
-ENV DOLI_VERSION 8.0.4
+ENV DOLI_VERSION 9.0.0
 
 RUN wget -q https://github.com/Dolibarr/dolibarr/archive/${DOLI_VERSION}.tar.gz \
  && tar xf ${DOLI_VERSION}.tar.gz \
