@@ -39,7 +39,7 @@ services:
       context: .
       args:
         SYNAPSE_FULL_URL: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
-        RIOT_VERSION: v0.17.8
+        RIOT_VERSION: v1.0.1
     restart: unless-stopped
     labels:
       traefik.enable: "true"
