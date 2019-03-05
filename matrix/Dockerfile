@@ -8,4 +8,5 @@ RUN curl -sSL https://github.com/vector-im/riot-web/releases/download/$RIOT_VERS
   | tar -xz --strip-components=1
 
 ARG SYNAPSE_FULL_URL
-RUN sed "/default_hs_url/s=https://matrix.org=//$SYNAPSE_FULL_URL=" config.sample.json > config.json
+ARG PROTOCOL
+RUN sed "/default_hs_url/s=https://matrix.org=${PROTOCOL}://${SYNAPSE_FULL_URL}=" config.sample.json > config.json

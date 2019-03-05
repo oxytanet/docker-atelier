@@ -18,6 +18,7 @@ echo SYNAPSE_SMTP_HOST=mail.gandi.net >> .env
 echo SYNAPSE_SMTP_USER=dev@oxyta.net >> .env
 echo SYNAPSE_SMTP_PASSWORD=changeme >> .env
 echo SYNAPSE_SERVER_NAME=matrix.localhost >> .env
+echo PROTOCOL=http >> .env  # or https for production
 ```
 
 If you setup your DNS with `_matrix._tcp           3600 IN  SRV    10 0 8448 $CHATONS_SERVICE.$CHATONS_DOMAIN.`, you
