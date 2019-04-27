@@ -6,12 +6,13 @@ networks:
 
 services:
   app:
-    image: matrixdotorg/synapse:v0.34.1.1-py3
+    image: matrixdotorg/synapse:v0.99.3-py3
     restart: unless-stopped
     env_file:
       - .env
     environment:
-      - SYNAPSE_SERVER_NAME=${SYNAPSE_SERVER_NAME}
+      - SYNAPSE_SERVER_NAME=${CHATONS_DOMAIN:-localhost}
+      - SYNAPSE_NO_TLS=true
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}"
@@ -20,8 +21,6 @@ services:
       - default
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data:/data
-    ports:
-      - 8448:8448
 
   db:
     image: postgres:10-alpine
@@ -30,7 +29,6 @@ services:
       - .env
     environment:
       - POSTGRES_USER=synapse
-      - POSTGRES_DB=synapse
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/postgres:/var/lib/postgresql/data
 
@@ -39,11 +37,11 @@ services:
       context: .
       args:
         SYNAPSE_FULL_URL: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
-        RIOT_VERSION: v1.0.1
+        RIOT_VERSION: v1.0.8
         PROTOCOL: ${PROTOCOL:-http}
     restart: unless-stopped
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}, www.${RIOTSUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}"
+      traefik.frontend.rule: "Host: ${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}, www.${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}"
     networks:
       - web
