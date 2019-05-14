@@ -17,7 +17,7 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-cloud}/db:/var/lib/postgresql/data
 
   app:
-    image: nextcloud:fpm-alpine
+    image: nextcloud:production-fpm-alpine
     restart: unless-stopped
     environment:
       - POSTGRES_DB=nextcloud
