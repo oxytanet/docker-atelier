@@ -5,6 +5,7 @@
 ## cloud
 
 1. @nim65s: https://cloud.baroustan.org
+2. @doc75: https://cloud.virlet.org
 
 ## dolibarr
 
