@@ -36,6 +36,9 @@ services:
     labels:
       traefik.enable: "true"
       traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-cloud}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-cloud}.${CHATONS_DOMAIN:-localhost}"
+      traefik.frontend.redirect.permanent: 'true'
+      traefik.frontend.redirect.regex: 'https://(.*)/.well-known/(card|cal)dav'
+      traefik.frontend.redirect.replacement: 'https://$$1/remote.php/dav/'
     networks:
       - web
       - default
