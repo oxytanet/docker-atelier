@@ -23,6 +23,7 @@ services:
       - POSTGRES_DB=nextcloud
       - POSTGRES_USER=nextcloud
       - POSTGRES_HOST=db
+      - REDIS_HOST=redis
     env_file:
       - .env
     volumes:
@@ -42,3 +43,7 @@ services:
     networks:
       - web
       - default
+
+  redis:
+    image: redis:alpine
+
