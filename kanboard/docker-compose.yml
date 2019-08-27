@@ -1,0 +1,33 @@
+version: '3'
+
+networks:
+  web:
+    external: true
+
+services:
+  db:
+    image: postgres:10-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=kanboard
+      - POSTGRES_USER=kanboard
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-kanboard}/db:/var/lib/postgresql/data
+
+  app:
+    image: kanboard/kanboard:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-kanboard}/app/data:/var/www/app/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-kanboard}/app/plugins:/var/www/app/plugins
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-kanboard}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-kanboard}.${CHATONS_DOMAIN:-localhost}"
+    networks:
+      - default
+      - web
+
