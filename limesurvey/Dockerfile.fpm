@@ -19,4 +19,5 @@ VOLUME /var/www/html /var/www/html/upload
 
 CMD sed -i "s|POSTGRES_PASSWORD|$POSTGRES_PASSWORD|" application/config/config.php \
  && chown -R www-data upload \
+ && chown -R www-data application/config \
  && php-fpm
