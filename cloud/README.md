@@ -7,6 +7,11 @@ https://nextcloud.com/
 echo POSTGRES_PASSWORD=$(openssl rand -base64 32) >> .env
 ```
 
+if you want to change the `pm.max_children` value for nextcloud container (default value of official nextcloud container is untouched if variable is not exported):
+```
+echo NEXTCLOUD_MAX_CHILDREN=50 >> .env
+```
+
 ## Deploy
 
 ```bash
@@ -24,6 +29,7 @@ docker-compose exec --user www-data app php occ config:system:set overwrite.cli.
 # to ensure reset password is working fine behind proxy
 docker-compose exec --user www-data app php occ config:system:set  overwriteprotocol --value="https" --type="string"
 ```
+
 ## Deploy with scaling of the "app" container
 
 ```
