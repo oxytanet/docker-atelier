@@ -17,7 +17,10 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-cloud}/db:/var/lib/postgresql/data
 
   app:
-    image: nextcloud:production-fpm-alpine
+    build:
+      context: ./nextcloud
+      args: 
+        max_children: ${NEXTCLOUD_MAX_CHILDREN:-default}
     restart: unless-stopped
     environment:
       - POSTGRES_DB=nextcloud
@@ -30,7 +33,7 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-cloud}/app:/var/www/html
 
   web:
-    build: .
+    build: ./nginx
     restart: unless-stopped
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-cloud}/app:/var/www/html:ro
