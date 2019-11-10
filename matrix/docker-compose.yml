@@ -37,6 +37,7 @@ services:
       context: .
       args:
         SYNAPSE_FULL_URL: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
+        CHATONS_DOMAIN: ${CHATONS_DOMAIN:-localhost}
         RIOT_VERSION: v1.5.3
         PROTOCOL: ${PROTOCOL:-http}
     restart: unless-stopped
