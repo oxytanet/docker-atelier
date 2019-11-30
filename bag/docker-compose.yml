@@ -15,7 +15,11 @@ services:
       - SYMFONY__ENV__DATABASE_PORT=5432
       - SYMFONY__ENV__DATABASE_NAME=wallabag
       - SYMFONY__ENV__DATABASE_USER=wallabag
-      - SYMFONY__ENV__DOMAIN_NAME=http://bag.${CHATONS_DOMAIN:-localhost}
+      - SYMFONY__ENV__FOSUSER_REGISTRATION=false
+      - SYMFONY__ENV__LOCALE=fr
+      - SYMFONY__ENV__DOMAIN_NAME=https://bag.${CHATONS_DOMAIN:-localhost}
+      # default root user of postgres image
+      - POSTGRES_USER=postgres
     env_file:
       - .env
     volumes:
@@ -33,7 +37,6 @@ services:
     restart: unless-stopped
     environment:
       - POSTGRES_DB=workaround # DB created by wallabag
-      - POSTGRES_USER=wallabag
     env_file:
       - .env
     volumes:
@@ -43,3 +46,4 @@ services:
 
   redis:
     image: redis:alpine
+    restart: unless-stopped
