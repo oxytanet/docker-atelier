@@ -6,12 +6,12 @@ networks:
 
 services:
   app:
-    image: shaarli/shaarli:latest
+    build: ./shaarli
     restart: unless-stopped
     volumes:
-      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_DOMAIN:-links}/data:/var/www/shaarli/data
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-links}/data:/var/www/shaarli/data
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_DOMAIN:-links}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_DOMAIN:-links}.${CHATONS_DOMAIN:-localhost}"
+      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-links}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-links}.${CHATONS_DOMAIN:-localhost}"
     networks:
       - web

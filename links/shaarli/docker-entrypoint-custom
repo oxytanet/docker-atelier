@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+# change the data directory ownership
+chown -R nginx:nginx /var/www/shaarli/data
+
+exec /bin/s6-svscan /etc/services.d
+
