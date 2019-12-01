@@ -2,6 +2,8 @@
 
 ## bag
 
+1. @doc75: https://bag.virlet.org
+
 ## cloud
 
 1. @nim65s: https://cloud.baroustan.org
@@ -20,9 +22,15 @@
 
 1. @oxyta.net: https://oxyta.net
 
+## kanboard
+
+1. @doc75: https://kanboard.virlet.org
+
 ## limesurvey
 
 ## links
+
+1. @doc75: https://links.virlet.org/
 
 ## matrix
 
@@ -39,3 +47,6 @@
 1. @nim65s: https://sentry.totheweb.fr
 
 ## static
+
+1. @doc75: https://autoconfig.virlet.com
+
