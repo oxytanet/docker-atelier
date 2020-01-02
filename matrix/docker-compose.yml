@@ -11,7 +11,6 @@ services:
     env_file:
       - .env
     environment:
-      - SYNAPSE_SERVER_NAME=${CHATONS_DOMAIN:-localhost}
       - SYNAPSE_NO_TLS=true
     labels:
       traefik.enable: "true"
