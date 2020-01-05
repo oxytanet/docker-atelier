@@ -17,7 +17,7 @@ services:
       - SYMFONY__ENV__DATABASE_USER=wallabag
       - SYMFONY__ENV__FOSUSER_REGISTRATION=false
       - SYMFONY__ENV__LOCALE=fr
-      - SYMFONY__ENV__DOMAIN_NAME=https://bag.${CHATONS_DOMAIN:-localhost}
+      - SYMFONY__ENV__DOMAIN_NAME=${PROTOCOL:-https}://${CHATONS_SERVICE:-bag}.${CHATONS_DOMAIN:-localhost}
       # default root user of postgres image
       - POSTGRES_USER=postgres
     env_file:
