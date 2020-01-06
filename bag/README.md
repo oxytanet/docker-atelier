@@ -11,7 +11,7 @@ echo SYMFONY__ENV__MAILER_HOST=changeme >> .env
 echo SYMFONY__ENV__MAILER_USER=changeme >> .env
 echo SYMFONY__ENV__FROM_EMAIL=changeme >> .env
 echo SYMFONY__ENV__MAILER_PASSWORD=changeme >> .env
-PROTOCOL=https
+echo PROTOCOL=https >> .env
 ```
 
 ## Deploy
