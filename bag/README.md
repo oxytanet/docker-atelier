@@ -11,7 +11,12 @@ echo SYMFONY__ENV__MAILER_HOST=changeme >> .env
 echo SYMFONY__ENV__MAILER_USER=changeme >> .env
 echo SYMFONY__ENV__FROM_EMAIL=changeme >> .env
 echo SYMFONY__ENV__MAILER_PASSWORD=changeme >> .env
-echo PROTOCOL=https >> .env
+```
+
+If you want to test with **http** instead of **https**, just export the following variable before launching `docker-compose`:
+```
+# when not exported, default to https
+export PROTOCOL=http
 ```
 
 ## Deploy
