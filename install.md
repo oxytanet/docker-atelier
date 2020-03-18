@@ -7,6 +7,7 @@ apt install -y \
      apt-transport-https \
      ca-certificates \
      curl \
+     git \
      gnupg2 \
      software-properties-common
 
@@ -34,7 +35,7 @@ cd docker-atelier
 
 ## Deploy the proxy
 ```
-docker network create web
+docker network create --ipv6 --subnet=fd00:dead:beef::/48 web
 ```
 
 And then you can go in the `proxy/` folder and in the environment you want:
