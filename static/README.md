@@ -24,7 +24,6 @@ Now you have a static site at URL `changeme.domain.tld`
 ```
 docker pull nginx:alpine
 docker-compose build --no-cache --pull
-docker-compose down
 docker-compose up -d
 ```
 
