@@ -22,15 +22,15 @@ You can use `$CHATONS_DOMAIN` as `$SYNAPSE_SERVER_NAME`, if you setup the
 ## Deploy
 ```
 # first generate the configuration file based on environment variables
-# the configuration file will be found in /$CHATONS_ROOT_DIR/$CHATONS_SERVICE/data/homserver.yaml
+# the configuration file will be found in /$CHATONS_ROOT_DIR/$CHATONS_SERVICE/data/homeserver.yaml
 docker-compose run -e SYNAPSE_SERVER_NAME="${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}" app migrate_config
 docker-compose down
 
 # If you want to activate mail functionality, you need now to add SMTP configuration to the file
-# ${CHATONS_ROOT_DIR}/$CHATONS_SERVICE/data/homserver.yaml
+# ${CHATONS_ROOT_DIR}/$CHATONS_SERVICE/data/homeserver.yaml
 # keep the first empty line to ensure it adds a new line to the last property in existing file
 # do not activate notifs so far as it will prevent the server from starting
-cat <<-EOF >> ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homserver.yaml
+cat <<-EOF >> ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
 
 public_baseurl: ${PROTOCOL}://${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
 
