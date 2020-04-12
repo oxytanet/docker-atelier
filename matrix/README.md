@@ -32,7 +32,7 @@ docker-compose down
 # do not activate notifs so far as it will prevent the server from starting
 cat <<-EOF >> ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
 
-public_baseurl: ${PROTOCOL}://${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
+public_baseurl: "${PROTOCOL}://${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}"
 client_base_url: "${PROTOCOL}://${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}"
 
 email:
