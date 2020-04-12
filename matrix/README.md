@@ -33,6 +33,7 @@ docker-compose down
 cat <<-EOF >> ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
 
 public_baseurl: ${PROTOCOL}://${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
+riot_base_url: "${PROTOCOL}://${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}"
 
 email:
    enable_notifs: false
@@ -43,7 +44,6 @@ email:
    require_transport_security: true
    notif_from: "dev@oxyta.net"
    notif_for_new_users: true
-   riot_base_url: "${PROTOCOL}://${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}"
 EOF
 
 # run the service
