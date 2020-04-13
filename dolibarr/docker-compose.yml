@@ -37,7 +37,7 @@ services:
       - app
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-dolibarr}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-dolibarr}.${CHATONS_DOMAIN:-localhost}"
+      traefik.http.routers.dolibarr.rule: "Host(`${CHATONS_SERVICE:-dolibarr}.${CHATONS_DOMAIN:-localhost}`)"
     networks:
       - web
       - default
