@@ -12,7 +12,6 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/static/${CHATONS_STATIC_SITE:-static}:/usr/share/nginx/html
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_STATIC_SITE:-static}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_STATIC_SITE:-static}.${CHATONS_DOMAIN:-localhost}"
+      traefik.http.routers.static.rule: "Host(`${CHATONS_STATIC_SITE:-static}.${CHATONS_DOMAIN:-localhost}`)"
     networks:
       - web
-
