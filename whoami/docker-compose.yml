@@ -10,7 +10,7 @@ services:
       - web
     labels:
       traefik.enable: "true"
-      traefik.http.routers.whoami.rule: "Host(`whoami.${CHATONS_DOMAIN:-localhost}`)"
+      traefik.http.routers.whoami.rule: "Host(`${CHATONS_SERVICE:-whoami}.${CHATONS_DOMAIN:-localhost}`)"
 
 networks:
   web:
