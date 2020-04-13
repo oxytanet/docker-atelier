@@ -8,7 +8,7 @@ https://sentry.io
 ## Configure
 
 ```bash
-echo POSTGRES_PASSWORD=$(openssl rand -base64 32) >> .env
+echo POSTGRES_PASSWORD=$(openssl rand -base64 32|sed 's/[+/=]//g') >> .env
 echo SENTRY_SECRET_KEY=$(openssl rand -base64 32) >> .env
 echo SENTRY_EMAIL_HOST=changeme >> .env
 echo SENTRY_EMAIL_PORT=changeme >> .env
