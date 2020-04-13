@@ -6,12 +6,11 @@ networks:
 
 services:
   app:
-    image: matrixdotorg/synapse:v1.7.1-py3
+    image: matrixdotorg/synapse:v1.12.3-py3
     restart: unless-stopped
     env_file:
       - .env
     environment:
-      - SYNAPSE_SERVER_NAME=${CHATONS_DOMAIN:-localhost}
       - SYNAPSE_NO_TLS=true
     labels:
       traefik.enable: "true"
@@ -29,6 +28,7 @@ services:
       - .env
     environment:
       - POSTGRES_USER=synapse
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/postgres:/var/lib/postgresql/data
 
@@ -38,7 +38,7 @@ services:
       args:
         SYNAPSE_FULL_URL: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
         CHATONS_DOMAIN: ${CHATONS_DOMAIN:-localhost}
-        RIOT_VERSION: v1.5.6
+        RIOT_VERSION: v1.5.15
         PROTOCOL: ${PROTOCOL:-http}
     restart: unless-stopped
     labels:

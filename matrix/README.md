@@ -13,11 +13,6 @@ For this project, you need to setup both `matrix` & `riot` subdomains of `$CHATO
 echo POSTGRES_PASSWORD=$(openssl rand -base64 32) >> .env
 echo SYNAPSE_REPORT_STATS=no >> .env
 echo SYNAPSE_ENABLE_REGISTRATION=yes >> .env
-echo SYNAPSE_SMTP_PORT=465 >> .env
-echo SYNAPSE_SMTP_HOST=mail.gandi.net >> .env
-echo SYNAPSE_SMTP_USER=dev@oxyta.net >> .env
-echo SYNAPSE_SMTP_PASSWORD=changeme >> .env
-echo SYNAPSE_SERVER_NAME=matrix.localhost >> .env
 echo PROTOCOL=http >> .env  # or https for production
 ```
 
@@ -26,5 +21,29 @@ You can use `$CHATONS_DOMAIN` as `$SYNAPSE_SERVER_NAME`, if you setup the
 
 ## Deploy
 ```
+# first generate the configuration file based on environment variables
+# the configuration file will be found in ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
+docker-compose run -e SYNAPSE_SERVER_NAME="${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}" app migrate_config
+docker-compose down
+
+# Finish the configuration:
+# keep the first empty line to ensure it adds a new line to the last property in existing file
+cat <<-EOF >> ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
+
+public_baseurl: "${PROTOCOL}://${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}"
+client_base_url: "${PROTOCOL}://${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}"
+
+email:
+   enable_notifs: false
+   smtp_host: "mail.gandi.net"
+   smtp_port: 465
+   smtp_user: "dev@oxyta.net"
+   smtp_pass: "changeme"
+   require_transport_security: true
+   notif_from: "dev@oxyta.net"
+   notif_for_new_users: true
+EOF
+
+# run the service
 docker-compose up -d
 ```

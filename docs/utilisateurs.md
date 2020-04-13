@@ -34,6 +34,8 @@
 
 ## matrix
 
+1. @nim65s: https://im.tetaneutral.net/
+
 ## pad
 
 1. @nim65s: https://pad.baroustan.org
@@ -49,4 +51,3 @@
 ## static
 
 1. @doc75: https://autoconfig.virlet.com
-
