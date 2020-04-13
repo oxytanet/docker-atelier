@@ -4,14 +4,16 @@ https://framagit.org/chocobozzz/PeerTube
 
 ## Configure
 
-### :warning: You *must* use a working SMTP server :warning:
+### :warning: You **must** use a working SMTP server :warning:
+### :warning: You **can't** change hostname or http/https with this service :warning:
 
 ```
 export DB_PASSWORD=$(openssl rand -base64 32)
 echo POSTGRES_PASSWORD=$DB_PASSWORD >> .env
 echo PEERTUBE_DB_PASSWORD=$DB_PASSWORD >> .env
-echo PEERTUBE_SMTP_PASSWORD=null >> .env
-echo PEERTUBE_SMTP_HOSTNAME=null >> .env
+echo PEERTUBE_SMTP_USERNAME=changeme >> .envv
+echo PEERTUBE_SMTP_PASSWORD=changeme >> .env
+echo PEERTUBE_SMTP_HOSTNAME=changeme >> .env
 echo PEERTUBE_SMTP_PORT=465 >> .env
 echo PEERTUBE_SMTP_TLS=true >> .env
 echo PEERTUBE_SMTP_USERNAME=${CHATONS_SERVICE:-peertube}@${CHATONS_DOMAIN:-localhost} >> .env
