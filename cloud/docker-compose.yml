@@ -19,7 +19,7 @@ services:
   app:
     build:
       context: ./nextcloud
-      args: 
+      args:
         max_children: ${NEXTCLOUD_MAX_CHILDREN:-default}
     restart: unless-stopped
     environment:
@@ -39,10 +39,10 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-cloud}/app:/var/www/html:ro
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-cloud}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-cloud}.${CHATONS_DOMAIN:-localhost}"
-      traefik.frontend.redirect.permanent: 'true'
-      traefik.frontend.redirect.regex: 'https://(.*)/.well-known/(card|cal)dav'
-      traefik.frontend.redirect.replacement: 'https://$$1/remote.php/dav/'
+      traefik.http.routers.cloud.rule: "Host(`${CHATONS_SERVICE:-cloud}.${CHATONS_DOMAIN:-localhost}`)"
+      traefik.http.middlewares.cloud.redirectregex.permanent: 'true'
+      traefik.http.middlewares.cloud.redirectregex.regex: 'https://(.*)/.well-known/(card|cal)dav'
+      traefik.http.middlewares.cloud.redirectregex.replacement: 'https://$${1}/remote.php/dav/'
     networks:
       - web
       - default
@@ -50,4 +50,3 @@ services:
   redis:
     image: redis:alpine
     restart: unless-stopped
-
