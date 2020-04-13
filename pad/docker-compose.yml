@@ -30,7 +30,7 @@ services:
       - .env
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-pad}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-pad}.${CHATONS_DOMAIN:-localhost}"
+      traefik.http.routers.pad.rule: "Host(`${CHATONS_SERVICE:-pad}.${CHATONS_DOMAIN:-localhost}`)"
     networks:
       - web
       - default
