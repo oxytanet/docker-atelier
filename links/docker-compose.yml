@@ -5,7 +5,7 @@ networks:
     external: true
 
 services:
-  app:
+  shaarli:
     build: ./shaarli
     restart: unless-stopped
     volumes:

@@ -5,7 +5,7 @@ networks:
     external: true
 
 services:
-  app:
+  peertube:
     image: chocobozzz/peertube:production-stretch
     restart: unless-stopped
     env_file:

@@ -39,5 +39,5 @@ docker-compose logs | grep password
 *Alternatively*, you can set `root`'s password:
 
 ```
-docker-compose exec app npm run reset-password -- -u root
+docker-compose exec peertube npm run reset-password -- -u root
 ```
