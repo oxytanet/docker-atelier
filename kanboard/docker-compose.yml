@@ -16,7 +16,7 @@ services:
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-kanboard}/db:/var/lib/postgresql/data
 
-  app:
+  kanboard:
     image: kanboard/kanboard:latest
     restart: unless-stopped
     env_file:

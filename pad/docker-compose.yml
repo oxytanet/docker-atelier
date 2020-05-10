@@ -15,7 +15,7 @@ services:
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-pad}/db:/var/lib/postgresql/data
 
-  app:
+  pad:
     build:
      context: .
      args:

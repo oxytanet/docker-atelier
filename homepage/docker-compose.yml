@@ -5,7 +5,7 @@ networks:
     external: true
 
 services:
-  app:
+  homepage:
     build: .
     restart: unless-stopped
     env_file:

@@ -23,7 +23,7 @@ You can use `$CHATONS_DOMAIN` as `$SYNAPSE_SERVER_NAME`, if you setup the
 ```
 # first generate the configuration file based on environment variables
 # the configuration file will be found in ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
-docker-compose run -e SYNAPSE_SERVER_NAME="${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}" app migrate_config
+docker-compose run -e SYNAPSE_SERVER_NAME="${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}" matrix migrate_config
 docker-compose down
 
 # Finish the configuration:

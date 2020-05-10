@@ -5,7 +5,7 @@ networks:
     external: true
 
 services:
-  app:
+  matrix:
     image: matrixdotorg/synapse:v1.12.3-py3
     restart: unless-stopped
     env_file:
