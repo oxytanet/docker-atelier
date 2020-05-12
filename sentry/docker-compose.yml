@@ -10,10 +10,12 @@ services:
   db:
     image: postgres:11-alpine
     restart: unless-stopped
+    env_file:
+      - .env
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-sentry}/db:/var/lib/postgresql/data
   sentry:
-    image: sentry
+    image: getsentry/sentry
     restart: unless-stopped
     env_file:
       - .env
@@ -22,22 +24,22 @@ services:
       - default
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-sentry}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-sentry}.${CHATONS_DOMAIN:-localhost}"
+      traefik.http.routers.sentry.rule: "Host(`${CHATONS_SERVICE:-sentry}.${CHATONS_DOMAIN:-localhost}`)"
     environment:
       - SENTRY_REDIS_HOST=redis
-      - SENTRY_POSTGRES_HOST=db
+      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
       - SENTRY_SERVER_EMAIL=${CHATONS_SERVICE:-sentry}@${CHATONS_DOMAIN:-localhost}
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-sentry}/data:/var/lib/sentry/file
   cron:
     command: "sentry run cron"
-    image: sentry
+    image: getsentry/sentry
     restart: unless-stopped
     env_file:
       - .env
     environment:
       - SENTRY_REDIS_HOST=redis
-      - SENTRY_POSTGRES_HOST=db
+      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
   worker:
     command: "sentry run worker"
     image: sentry
@@ -46,7 +48,7 @@ services:
       - .env
     environment:
       - SENTRY_REDIS_HOST=redis
-      - SENTRY_POSTGRES_HOST=db
+      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
 
 networks:
   web:

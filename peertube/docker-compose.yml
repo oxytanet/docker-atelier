@@ -6,7 +6,7 @@ networks:
 
 services:
   peertube:
-    image: chocobozzz/peertube:production-stretch
+    image: chocobozzz/peertube:production-buster
     restart: unless-stopped
     env_file:
       - .env
@@ -17,9 +17,10 @@ services:
       - PEERTUBE_DB_HOSTNAME=db
       - PEERTUBE_DB_USERNAME=postgres_user
       - PEERTUBE_REDIS_HOSTNAME=redis
+      - PEERTUBE_TRUST_PROXY=["127.0.0.1", "loopback", "172.18.0.0/16", "fd00:dead:beef::/48"]
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-peertube}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-peertube}.${CHATONS_DOMAIN:-localhost}"
+      traefik.http.routers.peertube.rule: "Host(`${CHATONS_SERVICE:-peertube}.${CHATONS_DOMAIN:-localhost}`)"
     networks:
       - web
       - default

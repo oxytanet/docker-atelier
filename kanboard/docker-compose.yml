@@ -26,8 +26,7 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-kanboard}/app/plugins:/var/www/app/plugins
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-kanboard}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-kanboard}.${CHATONS_DOMAIN:-localhost}"
+      traefik.http.routers.kanboard.rule: "Host(`${CHATONS_SERVICE:-kanboard}.${CHATONS_DOMAIN:-localhost}`)"
     networks:
       - default
       - web
-

@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  app:
+    image: containous/whoami
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - web
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.whoami.rule: "Host(`${CHATONS_SERVICE:-whoami}.${CHATONS_DOMAIN:-localhost}`)"
+
+networks:
+  web:
+    external: true

@@ -1,11 +1,14 @@
 # Sentry
 
+### :warning: this used to work, but is now completely broken… :warning:
+
 Sentry is an error tracking software:
 https://sentry.io
 
 ## Configure
 
 ```bash
+echo POSTGRES_PASSWORD=$(openssl rand -base64 32|sed 's/[+/=]//g') >> .env
 echo SENTRY_SECRET_KEY=$(openssl rand -base64 32) >> .env
 echo SENTRY_EMAIL_HOST=changeme >> .env
 echo SENTRY_EMAIL_PORT=changeme >> .env

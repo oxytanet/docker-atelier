@@ -12,6 +12,6 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-links}/data:/var/www/shaarli/data
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-links}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-links}.${CHATONS_DOMAIN:-localhost}"
+      traefik.http.routers.links.rule: "Host(`${CHATONS_SERVICE:-links}.${CHATONS_DOMAIN:-localhost}`)"
     networks:
       - web

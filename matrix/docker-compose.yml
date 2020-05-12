@@ -14,7 +14,7 @@ services:
       - SYNAPSE_NO_TLS=true
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}, www.${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}"
+      traefik.http.routers.matrix-app.rule: "Host(`${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}`)"
     networks:
       - web
       - default
@@ -43,6 +43,6 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: "true"
-      traefik.frontend.rule: "Host: ${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}, www.${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}"
+      traefik.http.routers.matrix-riot.rule: "Host(`${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}`)"
     networks:
       - web
