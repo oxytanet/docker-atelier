@@ -26,6 +26,13 @@ If you prefer to install the instance in command line, you can launch the follow
 docker-compose exec --user www-data app php /var/www/html/occ maintenance:install --database "pgsql" --database-name "nextcloud"  --database-host="db" --database-user "nextcloud" --database-pass "$POSTGRES_PASSWORD" --admin-user "$ADIMN_USER" --admin-pass "$ADMIN_PASSWORD"
 docker-compose exec --user www-data app php occ config:system:set trusted_domains 0 --value=$CHATONS_SERVICE.$CHATONS_DOMAIN
 docker-compose exec --user www-data app php occ config:system:set overwrite.cli.url --value=http://$CHATONS_SERVICE.$CHATONS_DOMAIN
+# to avoid error message related to untrusted proxies
+idx=0
+for ip_range in $(docker network inspect web | jq '.[].IPAM.Config[].Subnet');
+do
+  docker-compose exec --user www-data app php occ config:system:set trusted_proxies ${idx} --value="${ip_range}"
+  idx=$((idx+1))
+done
 # to ensure reset password is working fine behind proxy
 docker-compose exec --user www-data app php occ config:system:set  overwriteprotocol --value="https" --type="string"
 ```
