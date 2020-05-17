@@ -43,6 +43,7 @@ services:
       traefik.http.middlewares.cloud.redirectregex.permanent: 'true'
       traefik.http.middlewares.cloud.redirectregex.regex: 'https://(.*)/.well-known/(card|cal)dav'
       traefik.http.middlewares.cloud.redirectregex.replacement: 'https://$${1}/remote.php/dav/'
+      traefik.http.middlewares.cloud.headers.customFrameOptionsValue: 'sameorigin'
     networks:
       - web
       - default
