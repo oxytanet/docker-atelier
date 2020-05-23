@@ -55,7 +55,3 @@ services:
       - .env
     depends_on:
       - xmpp
-    labels:
-      traefik.udp.routers.jvb.entrypoints: video
-      traefik.udp.routers.jvb.service: jvb
-      traefik.udp.services.jvb.loadbalancer.server.port: 10000
