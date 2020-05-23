@@ -17,7 +17,7 @@ services:
       - PEERTUBE_DB_HOSTNAME=db
       - PEERTUBE_DB_USERNAME=postgres_user
       - PEERTUBE_REDIS_HOSTNAME=redis
-      - PEERTUBE_TRUST_PROXY=["127.0.0.1", "loopback", "172.18.0.0/16", "fd00:dead:beef::/48"]
+      - PEERTUBE_TRUST_PROXY=["127.0.0.1", "loopback", "172.16.0.0/12", "fd00:dead:beef::/48"]
     labels:
       traefik.enable: "true"
       traefik.http.routers.peertube.rule: "Host(`${CHATONS_SERVICE:-peertube}.${CHATONS_DOMAIN:-localhost}`)"
