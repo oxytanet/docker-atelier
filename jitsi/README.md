@@ -19,3 +19,8 @@ echo CHATONS_DOMAIN=domain.tld >> .env
 ```bash
 docker-compose up -d
 ```
+
+## Plug your etherpad
+
+edit `${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-jitsi}/web/config.js` to set eg.
+`etherpad_base: 'https://etherpad.domain.tld/p/',`
