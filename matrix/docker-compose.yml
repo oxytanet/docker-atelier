@@ -6,7 +6,7 @@ networks:
 
 services:
   matrix:
-    image: matrixdotorg/synapse:v1.17.0-py3
+    image: matrixdotorg/synapse:v1.18.0
     restart: unless-stopped
     env_file:
       - .env
@@ -38,7 +38,7 @@ services:
       args:
         SYNAPSE_FULL_URL: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
         CHATONS_DOMAIN: ${CHATONS_DOMAIN:-localhost}
-        RIOT_VERSION: v1.7.1
+        RIOT_VERSION: v1.7.2
         PROTOCOL: ${PROTOCOL:-http}
     restart: unless-stopped
     labels:
