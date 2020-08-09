@@ -1,10 +1,10 @@
-# Matrix & Riot
+# Matrix & Element
 
-https://matrix.org & https://riot.im
+https://matrix.org & https://element.io
 
 ## DNS
 
-For this project, you need to setup both `matrix` & `riot` subdomains of `$CHATONS_DOMAIN` (which defaults to
+For this project, you need to setup both `matrix` & `element` subdomains of `$CHATONS_DOMAIN` (which defaults to
 `localhost`)
 
 ## Configure
@@ -31,7 +31,7 @@ docker-compose down
 cat <<-EOF >> ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
 
 public_baseurl: "${PROTOCOL}://${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}"
-client_base_url: "${PROTOCOL}://${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}"
+client_base_url: "${PROTOCOL}://${ELEMENT_SUBDOMAIN:-element}.${CHATONS_DOMAIN:-localhost}"
 
 email:
    enable_notifs: false

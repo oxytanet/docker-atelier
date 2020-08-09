@@ -3,8 +3,8 @@ FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 RUN apk add --no-cache curl
 
-ARG RIOT_VERSION
-RUN curl -sSL https://github.com/vector-im/riot-web/releases/download/$RIOT_VERSION/riot-$RIOT_VERSION.tar.gz \
+ARG ELEMENT_VERSION
+RUN curl -sSL https://github.com/vector-im/element-web/releases/download/$ELEMENT_VERSION/riot-$ELEMENT_VERSION.tar.gz \
   | tar -xz --strip-components=1
 
 ARG SYNAPSE_FULL_URL

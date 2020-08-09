@@ -32,17 +32,17 @@ services:
     volumes:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/postgres:/var/lib/postgresql/data
 
-  riot:
+  element:
     build:
       context: .
       args:
         SYNAPSE_FULL_URL: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
         CHATONS_DOMAIN: ${CHATONS_DOMAIN:-localhost}
-        RIOT_VERSION: v1.7.2
+        ELEMENT_VERSION: v1.7.3
         PROTOCOL: ${PROTOCOL:-http}
     restart: unless-stopped
     labels:
       traefik.enable: "true"
-      traefik.http.routers.matrix-riot.rule: "Host(`${RIOT_SUBDOMAIN:-riot}.${CHATONS_DOMAIN:-localhost}`)"
+      traefik.http.routers.matrix-element.rule: "Host(`${ELEMENT_SUBDOMAIN:-element}.${CHATONS_DOMAIN:-localhost}`)"
     networks:
       - web
