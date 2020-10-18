@@ -5,8 +5,8 @@ networks:
     external: true
 
 services:
-  matrix:
-    image: matrixdotorg/synapse:v1.20.1
+  synapse:
+    image: matrixdotorg/synapse:v1.21.2
     restart: unless-stopped
     env_file:
       - .env
@@ -38,7 +38,7 @@ services:
       args:
         SYNAPSE_FULL_URL: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
         CHATONS_DOMAIN: ${CHATONS_DOMAIN:-localhost}
-        ELEMENT_VERSION: v1.7.7
+        ELEMENT_VERSION: v1.7.9
         PROTOCOL: ${PROTOCOL:-http}
     restart: unless-stopped
     labels:
