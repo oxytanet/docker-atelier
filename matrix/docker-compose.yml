@@ -38,7 +38,7 @@ services:
       args:
         SYNAPSE_FULL_URL: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
         CHATONS_DOMAIN: ${CHATONS_DOMAIN:-localhost}
-        ELEMENT_VERSION: v1.7.9
+        ELEMENT_VERSION: v1.7.10
         PROTOCOL: ${PROTOCOL:-http}
     restart: unless-stopped
     labels:
