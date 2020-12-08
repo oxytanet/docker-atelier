@@ -4,7 +4,7 @@ WORKDIR /usr/share/nginx/html
 RUN apk add --no-cache curl
 
 ARG ELEMENT_VERSION
-RUN curl -sSL https://github.com/vector-im/element-web/releases/download/$ELEMENT_VERSION/riot-$ELEMENT_VERSION.tar.gz \
+RUN curl -sSL https://github.com/vector-im/element-web/releases/download/$ELEMENT_VERSION/element-$ELEMENT_VERSION.tar.gz \
   | tar -xz --strip-components=1
 
 ARG SYNAPSE_FULL_URL
