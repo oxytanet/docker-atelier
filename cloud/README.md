@@ -23,7 +23,7 @@ Then you can connect to your Nextcloud instance to perform the installation.
 If you prefer to install the instance in command line, you can launch the following commands (Replace variables below by their value ): 
 
 ```
-docker-compose exec --user www-data app php /var/www/html/occ maintenance:install --database "pgsql" --database-name "nextcloud"  --database-host="db" --database-user "nextcloud" --database-pass "$POSTGRES_PASSWORD" --admin-user "$ADIMN_USER" --admin-pass "$ADMIN_PASSWORD"
+docker-compose exec --user www-data app php /var/www/html/occ maintenance:install --database "pgsql" --database-name "nextcloud"  --database-host="db" --database-user "nextcloud" --database-pass "$POSTGRES_PASSWORD" --admin-user "$ADMIN_USER" --admin-pass "$ADMIN_PASSWORD"
 docker-compose exec --user www-data app php occ config:system:set trusted_domains 0 --value=$CHATONS_SERVICE.$CHATONS_DOMAIN
 docker-compose exec --user www-data app php occ config:system:set overwrite.cli.url --value=http://$CHATONS_SERVICE.$CHATONS_DOMAIN
 # to avoid error message related to untrusted proxies
