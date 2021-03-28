@@ -1,0 +1,17 @@
+version: '3'
+
+networks:
+  web:
+    external: true
+
+services:
+  searx:
+    image: searx/searx
+    restart: unless-stopped
+    env_file:
+      - .env
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.searx.rule: "Host(`${CHATONS_SERVICE:-searx}.${CHATONS_DOMAIN:-localhost}`)"
+    networks:
+      - web
