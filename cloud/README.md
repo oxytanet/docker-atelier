@@ -22,6 +22,8 @@ Then you can connect to your Nextcloud instance to perform the installation.
 
 If you prefer to install the instance in command line, you can launch the following commands (Replace variables below by their value ): 
 
+Note: in order to run the following commands, you may need to manually install [jq](https://stedolan.github.io/jq), you can do so by running the following command on debian: `apt install jq`
+
 ```
 docker-compose exec --user www-data app php /var/www/html/occ maintenance:install --database "pgsql" --database-name "nextcloud"  --database-host="db" --database-user "nextcloud" --database-pass "$POSTGRES_PASSWORD" --admin-user "$ADMIN_USER" --admin-pass "$ADMIN_PASSWORD"
 docker-compose exec --user www-data app php occ config:system:set trusted_domains 0 --value=$CHATONS_SERVICE.$CHATONS_DOMAIN
