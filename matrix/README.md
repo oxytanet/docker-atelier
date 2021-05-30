@@ -21,12 +21,13 @@ You can use `$CHATONS_DOMAIN` as `$SYNAPSE_SERVER_NAME`, if you setup the
 
 ## Deploy
 ```
+source .env
 # first generate the configuration file based on environment variables
 # the configuration file will be found in ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
 docker-compose run -e SYNAPSE_SERVER_NAME="${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}" synapse migrate_config
 docker-compose down
 
-# Finish the configuration:
+# Finish the configuration of the synapse serveur:
 # keep the first empty line to ensure it adds a new line to the last property in existing file
 cat <<-EOF >> ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
 
@@ -43,6 +44,11 @@ email:
    notif_from: "dev@oxyta.net"
    notif_for_new_users: true
 EOF
+
+# Configure the client:
+curl https://raw.githubusercontent.com/vector-im/element-web/develop/config.sample.json \
+ | sed "/base_url/s=https://matrix-client.matrix.org=${PROTOCOL}://${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}=;/server_name/s=matrix.org=${CHATONS_DOMAIN:-localhost}=" \
+ > ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/config.json
 
 # run the service
 docker-compose up -d

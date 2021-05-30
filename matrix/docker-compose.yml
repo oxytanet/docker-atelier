@@ -33,16 +33,12 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/postgres:/var/lib/postgresql/data
 
   element:
-    build:
-      context: .
-      args:
-        SYNAPSE_FULL_URL: ${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}
-        CHATONS_DOMAIN: ${CHATONS_DOMAIN:-localhost}
-        ELEMENT_VERSION: v1.7.27
-        PROTOCOL: ${PROTOCOL:-http}
+    image: vectorim/element-web:v1.7.29
     restart: unless-stopped
     labels:
       traefik.enable: "true"
       traefik.http.routers.matrix-element.rule: "Host(`${ELEMENT_SUBDOMAIN:-element}.${CHATONS_DOMAIN:-localhost}`)"
+    volumes:
+      - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/config.json:/app/config.json
     networks:
       - web
