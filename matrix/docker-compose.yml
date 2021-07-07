@@ -33,7 +33,7 @@ services:
       - ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/postgres:/var/lib/postgresql/data
 
   element:
-    image: vectorim/element-web:v1.7.31
+    image: vectorim/element-web:v1.7.32
     restart: unless-stopped
     labels:
       traefik.enable: "true"
