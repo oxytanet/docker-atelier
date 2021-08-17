@@ -29,6 +29,7 @@ docker-compose down
 
 # Finish the configuration of the synapse serveur:
 # keep the first empty line to ensure it adds a new line to the last property in existing file
+sed -i '/x_forwarded/s/false/true/' ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
 cat <<-EOF >> ${CHATONS_ROOT_DIR:-/srv/chatons}/${CHATONS_SERVICE:-matrix}/data/homeserver.yaml
 
 public_baseurl: "${PROTOCOL}://${CHATONS_SERVICE:-matrix}.${CHATONS_DOMAIN:-localhost}"
