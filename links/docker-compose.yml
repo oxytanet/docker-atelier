@@ -13,5 +13,6 @@ services:
     labels:
       traefik.enable: "true"
       traefik.http.routers.links.rule: "Host(`${CHATONS_SERVICE:-links}.${CHATONS_DOMAIN:-localhost}`)"
+      traefik.http.middlewares.links.headers.frameDeny: 'true'
     networks:
       - web

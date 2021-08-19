@@ -27,6 +27,7 @@ services:
     labels:
       traefik.enable: "true"
       traefik.http.routers.kanboard.rule: "Host(`${CHATONS_SERVICE:-kanboard}.${CHATONS_DOMAIN:-localhost}`)"
+      traefik.http.middlewares.kanboard.headers.frameDeny: 'true'
     networks:
       - default
       - web
