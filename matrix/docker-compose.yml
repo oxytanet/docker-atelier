@@ -6,7 +6,7 @@ networks:
 
 services:
   synapse:
-    image: matrixdotorg/synapse:v1.45.1
+    image: matrixdotorg/synapse:v1.46.0
     restart: unless-stopped
     env_file:
       - .env
